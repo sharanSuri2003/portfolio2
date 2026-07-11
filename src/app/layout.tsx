@@ -17,9 +17,59 @@ const instrumentSerif = Instrument_Serif({
   style: ["normal", "italic"],
 });
 
+const siteUrl = "https://sharansuri.in";
+const siteTitle = "Sharan Suri";
+const siteDescription =
+  "Engineer into breaking stuff down, building web vibes, and vibing with design sometimes. Fullstack @ WebVeda & IGC.";
+
 export const metadata: Metadata = {
-  title: "Sharan Suri",
-  description: "Portfolio of Sharan Suri.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteTitle,
+    template: `%s · ${siteTitle}`,
+  },
+  description: siteDescription,
+  applicationName: siteTitle,
+  authors: [{ name: "Sharan Suri", url: siteUrl }],
+  creator: "Sharan Suri",
+  keywords: [
+    "Sharan Suri",
+    "portfolio",
+    "fullstack engineer",
+    "web developer",
+    "WebVeda",
+    "IGC",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: siteTitle,
+    title: siteTitle,
+    description: siteDescription,
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Sharan Suri — engineer, fullstack, design",
+        type: "image/jpeg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/og.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
