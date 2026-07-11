@@ -1,39 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Navbar from "@/components/navbar";
+import Dashboard from "@/components/dashboard";
 import { motion, useAnimate, stagger } from "framer-motion";
-import Loader from "@/components/loader";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
+import { ArrowUpRight, Sparkles, Trophy, Zap } from "lucide-react";
 import Link from "next/link";
 
 const page = () => {
-  const { theme } = useTheme();
   const [scope, animate] = useAnimate();
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    console.log(theme);
-  }, [theme]);
 
   useEffect(() => {
     const animations = async (duration: number) => {
-      if (!isLoaded) {
-        try {
-          await animate(
-            ".loader",
-            { opacity: 1 },
-            { duration: duration * 0.4 }
-          );
-          await animate(
-            ".loader",
-            { opacity: 0 },
-            { duration: duration * 0.5, delay: duration * 2 }
-          );
-        } catch {}
-      }
       await animate(
         ".name",
         { opacity: 1, y: 0 },
@@ -72,10 +51,15 @@ const page = () => {
         { filter: "blur(0px)" },
         { duration: duration * 0.5 }
       );
+      // Chips land last — a sticker being pressed onto the sentence
+      await animate(
+        ".chip",
+        { opacity: 1, scale: [1.25, 0.96, 1] },
+        { duration: duration * 0.45, ease: [0.22, 1, 0.36, 1] }
+      );
       sessionStorage.setItem("isLoaded", "true");
     };
-    if (sessionStorage.getItem("isLoaded") === "true" || isLoaded) {
-      setIsLoaded(true);
+    if (sessionStorage.getItem("isLoaded") === "true") {
       animations(0);
       return;
     }
@@ -87,92 +71,93 @@ const page = () => {
   const words = description.split(" ");
 
   return (
-    <div
-      className='min-h-screen w-full flex flex-col items-center justify-center px-4 bg-backgroundd'
-      ref={scope}
-    >
-      {!isLoaded && <Loader />}
+    <div className='w-full' ref={scope}>
       <Navbar isHome={true} />
-      <div className='flex flex-col w-full max-w-3xl justify-center items-center gap-4'>
-        <div>
-          <motion.span
-            className={`name text-4xl md:text-6xl font-bold inline-block mr-4 opacity-0`}
-          >
-            Sharan{" "}
-          </motion.span>
-          <motion.span
-            className={`name text-4xl md:text-6xl  font-bold inline-block`}
-            initial={{ opacity: 0 }}
-          >
-            Suri
-          </motion.span>
-        </div>
-        <p
-          suppressHydrationWarning
-          className={cn(
-            "text-sm text-center whitespace-pre-line flex flex-row gap-1 flex-wrap w-sm justify-center px-4 md:px-0",
-            theme === "light" ? "font-medium" : "font-thin"
-          )}
-        >
-          {words.map((word, index) => (
-            <motion.span
-              key={index}
-              className='description'
-              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-            >
-              {word}
+      <div className='relative z-[1] flex min-h-[92svh] w-full flex-col items-center justify-center px-4 py-24 md:py-0'>
+        <div className='flex w-full max-w-4xl flex-col items-center justify-center gap-6'>
+          <h1 className='text-center font-display font-normal leading-[1.05] tracking-[-0.02em] text-[clamp(3.5rem,8vw,7.5rem)]'>
+            <motion.span className='name mr-[0.22em] inline-block opacity-0'>
+              Sharan
             </motion.span>
-          ))}
-        </p>
+            <motion.span className='name inline-block' initial={{ opacity: 0 }}>
+              <span className='inline-block rotate-[-2deg] align-baseline'>
+                <motion.span
+                  className='chip inline-flex items-center gap-[0.14em] rounded-[18px] bg-chip-violet px-[0.28em] py-[0.02em] italic text-accent-violet'
+                  initial={{ opacity: 0, scale: 1.25 }}
+                >
+                  <Sparkles className='size-4 md:size-5' />
+                  Suri
+                </motion.span>
+              </span>
+              .
+            </motion.span>
+          </h1>
+          <p className='flex max-w-[34rem] flex-row flex-wrap justify-center gap-x-1.5 gap-y-1 px-4 text-center text-[1.1rem] leading-[1.6] text-muted-foreground md:px-0'>
+            {words.map((word, index) => (
+              <motion.span
+                key={index}
+                className='description'
+                initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </p>
 
-        <motion.p
-          className='wv font-medium text-base w-1/2 text-center'
-          initial={{ opacity: 0, filter: "blur(2px)" }}
-        >
-          <motion.span
-            layout
-            className='inline-block mr-1 relative cursor-pointer group'
-            whileHover='hover'
+          <motion.p
+            className='wv flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2 px-2 text-center text-[1.05rem] text-muted-foreground'
+            initial={{ opacity: 0, filter: "blur(2px)" }}
           >
-            <Link href='/projects'>Fullstack </Link>
             <motion.span
-              className='absolute bottom-0 left-0 w-0 h-[1px] bg-primary'
-              variants={{
-                hover: {
-                  width: "100%",
-                  transition: { duration: 0.3, ease: "easeOut" },
-                },
-              }}
-            />
-          </motion.span>
-          <span className='inline-block relative mr-1'>@ </span>
-          <motion.span
-            layout
-            className='inline-block relative cursor-pointer group'
-            whileHover='hover'
+              layout
+              className='group relative inline-block cursor-pointer text-foreground'
+              whileHover='hover'
+            >
+              <Link href='/projects'>Fullstack</Link>
+              <motion.span
+                className='absolute bottom-0 left-0 h-[1px] w-0 bg-accent-green'
+                variants={{
+                  hover: {
+                    width: "100%",
+                    transition: { duration: 0.3, ease: "easeOut" },
+                  },
+                }}
+              />
+            </motion.span>
+            <span className='inline-block'>@</span>
+            <span className='inline-block rotate-[1.5deg] align-middle'>
+              <motion.span
+                className='chip inline-flex cursor-pointer items-center gap-1.5 rounded-[14px] bg-chip-peach px-2.5 py-0.5 font-display text-[1.15rem] italic text-chip-peach-ink transition-transform duration-300 hover:scale-[1.04]'
+                initial={{ opacity: 0, scale: 1.25 }}
+              >
+                <Zap className='size-4' />
+                <Link href='/work'>WebVeda</Link>
+              </motion.span>
+            </span>
+            <span className='inline-block'>&</span>
+            <span className='inline-block rotate-[-1.5deg] align-middle'>
+              <motion.span
+                className='chip inline-flex cursor-pointer items-center gap-1.5 rounded-[14px] bg-chip-violet px-2.5 py-0.5 font-display text-[1.15rem] italic text-accent-violet transition-transform duration-300 hover:scale-[1.04]'
+                initial={{ opacity: 0, scale: 1.25 }}
+              >
+                <Trophy className='size-4' />
+                <Link href='/work'>IGC</Link>
+              </motion.span>
+            </span>
+          </motion.p>
+          <motion.div
+            className='resumebutton mt-4'
+            initial={{ opacity: 0 }}
+            onClick={() => window.open("/SharanResume5.0.pdf", "_blank")}
           >
-            <Link href='/work'>{"WebVeda"}</Link>
-            <motion.span
-              className='absolute bottom-0 left-0 w-0 h-[1px] bg-primary'
-              variants={{
-                hover: {
-                  width: "100%",
-                  transition: { duration: 0.3, ease: "easeOut" },
-                },
-              }}
-            />
-          </motion.span>
-        </motion.p>
-        <motion.div
-          className='resumebutton'
-          initial={{ opacity: 0 }}
-          onClick={() => window.open("/SharanResume5.0.pdf", "_blank")}
-        >
-          <Button variant='secondary' className='cursor-pointer'>
-            Resume
-          </Button>
-        </motion.div>
+            <Button size='lg' className='cursor-pointer'>
+              View resume
+              <ArrowUpRight className='size-5' />
+            </Button>
+          </motion.div>
+        </div>
       </div>
+      <Dashboard />
     </div>
   );
 };

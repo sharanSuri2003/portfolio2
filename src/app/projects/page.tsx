@@ -33,35 +33,35 @@ const page = () => {
   return (
     <>
       <Navbar />
-      <div className='flex flex-col items-center justify-center min-h-screen px-8 pb-8 md:pb-0'>
-        <div className='flex flex-col items-start justify-start w-full md:w-3xl min-h-screen pt-24'>
-          <h1 className='text-4xl font-bold underline decoration-2 underline-offset-8 mb-6'>
-            Projects
+      <main className='relative z-[1] min-h-screen w-full px-5 md:px-6'>
+        <div className='mx-auto flex w-full max-w-3xl flex-col items-start pt-28 pb-28 md:pt-44 md:pb-40'>
+          <h1 className='mb-10 font-display text-5xl font-normal tracking-[-0.02em] md:mb-16 md:text-6xl'>
+            Projects.
           </h1>
           {projects.map((project) => (
-            <div
-              className='flex flex-col items-start justify-start w-full mb-8 gap-4'
+            <section
+              className='mb-6 flex w-full flex-col items-start gap-4 rounded-[20px] border border-border bg-card p-5 md:mb-8 md:p-10'
               key={project.id}
             >
-              <h2 className='text-3xl font-bold flex flex-row gap-4 items-center justify-center'>
+              <h2 className='flex flex-row items-center gap-4 font-display text-3xl font-normal md:text-4xl'>
                 {`${project.title}`}
                 {project.link && (
                   <a
                     href={project.link}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='text-xl'
+                    className='flex items-center justify-center rounded-full border border-border p-2.5 text-base text-muted-foreground transition-colors hover:border-accent-green hover:text-foreground'
                   >
                     <SiGithub />
                   </a>
                 )}
               </h2>
-              <div className='flex flex-row items-center justify-center gap-2'>
+              <div className='flex flex-row items-center justify-center gap-3 text-muted-foreground'>
                 {project.icons.map((icon, index) => (
                   <div key={index}>{icon}</div>
                 ))}
               </div>
-              <p className='text-sm text-gray-500 mb-4'>
+              <p className='text-[0.95rem] leading-[1.6] text-muted-foreground'>
                 {project.description}
               </p>
               <Image
@@ -69,12 +69,12 @@ const page = () => {
                 alt={project.title}
                 width={700}
                 height={400}
-                className='w-1/2 h-auto object-cover rounded-lg'
+                className='h-auto w-full rounded-xl border border-border object-cover md:w-2/3'
               />
-            </div>
+            </section>
           ))}
         </div>
-      </div>
+      </main>
     </>
   );
 };
