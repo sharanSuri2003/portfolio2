@@ -17,34 +17,33 @@ const page = () => {
         ".name",
         { opacity: 1, y: 0 },
         {
-          duration: duration * 0.8,
-          ease: "easeIn",
+          duration: duration * 0.7,
+          ease: [0.22, 1, 0.36, 1],
         }
       );
       await animate(
         ".description",
         { opacity: 1, y: 0, filter: "blur(0px)" },
         {
-          duration: duration * 0.1,
-          type: "spring",
-          stiffness: 50,
-          delay: stagger(duration * 0.05),
+          duration: duration * 0.55,
+          ease: [0.22, 1, 0.36, 1],
+          delay: stagger(duration * 0.035),
         }
       );
       await animate(
         ".wv",
         { opacity: 1, filter: "blur(0px)" },
-        { duration: duration * 0.5 }
+        { duration: duration * 0.6, ease: [0.22, 1, 0.36, 1] }
       );
       await animate(
         ".resumebutton",
         { opacity: 1 },
-        { duration: duration * 0.5 }
+        { duration: duration * 0.6, ease: [0.22, 1, 0.36, 1] }
       );
       animate(
         ".navbar",
         { y: 0 },
-        { duration: duration * 0.4, ease: "easeIn" }
+        { duration: duration * 0.6, ease: [0.22, 1, 0.36, 1] }
       );
       await animate(
         ".navbar",
@@ -73,16 +72,16 @@ const page = () => {
   return (
     <div className='w-full' ref={scope}>
       <Navbar isHome={true} />
-      <div className='relative z-[1] flex min-h-[92svh] w-full flex-col items-center justify-center px-4 py-24 md:py-0'>
-        <div className='flex w-full max-w-4xl flex-col items-center justify-center gap-6'>
-          <h1 className='text-center font-display font-normal leading-[1.05] tracking-[-0.02em] text-[clamp(3.5rem,8vw,7.5rem)]'>
-            <motion.span className='name mr-[0.22em] inline-block opacity-0'>
+      <div className='relative z-[1] flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden px-4 pb-28 pt-36 md:pb-32 md:pt-44'>
+        <div className='flex w-full max-w-5xl flex-col items-center justify-center gap-7'>
+          <h1 className='max-w-[10ch] text-center font-display text-[clamp(4.5rem,10.5vw,9.25rem)] font-normal leading-[0.88] tracking-[-0.045em] [text-shadow:0_8px_50px_rgba(0,0,0,0.55)] md:max-w-none'>
+            <motion.span className='name mr-[0.18em] inline-block opacity-0'>
               Sharan
             </motion.span>
             <motion.span className='name inline-block' initial={{ opacity: 0 }}>
               <span className='inline-block rotate-[-2deg] align-baseline'>
                 <motion.span
-                  className='chip inline-flex items-center gap-[0.14em] rounded-[18px] bg-chip-violet px-[0.28em] py-[0.02em] italic text-accent-violet'
+                  className='chip inline-flex items-center gap-[0.12em] rounded-[0.2em] border border-accent-violet/20 bg-chip-violet px-[0.28em] py-[0.025em] italic text-accent-violet shadow-[0_18px_60px_rgba(139,92,246,0.08)]'
                   initial={{ opacity: 0, scale: 1.25 }}
                 >
                   <Sparkles className='size-4 md:size-5' />
@@ -92,7 +91,7 @@ const page = () => {
               .
             </motion.span>
           </h1>
-          <p className='flex max-w-[34rem] flex-row flex-wrap justify-center gap-x-1.5 gap-y-1 px-4 text-center text-[1.1rem] leading-[1.6] text-muted-foreground md:px-0'>
+          <p className='flex max-w-[34rem] flex-row flex-wrap justify-center gap-x-1.5 gap-y-1 px-4 text-center text-[1.05rem] leading-[1.65] text-muted-foreground md:px-0 md:text-[1.15rem]'>
             {words.map((word, index) => (
               <motion.span
                 key={index}
@@ -105,7 +104,7 @@ const page = () => {
           </p>
 
           <motion.p
-            className='wv flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2 px-2 text-center text-[1.05rem] text-muted-foreground'
+            className='wv flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2.5 px-2 text-center text-[0.98rem] text-muted-foreground'
             initial={{ opacity: 0, filter: "blur(2px)" }}
           >
             <motion.span
@@ -127,7 +126,7 @@ const page = () => {
             <span className='inline-block'>@</span>
             <span className='inline-block rotate-[1.5deg] align-middle'>
               <motion.span
-                className='chip inline-flex cursor-pointer items-center gap-1.5 rounded-[14px] bg-chip-peach px-2.5 py-0.5 font-display text-[1.15rem] italic text-chip-peach-ink transition-transform duration-300 hover:scale-[1.04]'
+                className='chip inline-flex cursor-pointer items-center gap-1.5 rounded-[14px] border border-accent-peach/15 bg-chip-peach px-2.5 py-0.5 font-display text-[1.15rem] italic text-chip-peach-ink shadow-[0_10px_30px_rgba(249,115,22,0.08)] transition-transform duration-300 hover:scale-[1.04]'
                 initial={{ opacity: 0, scale: 1.25 }}
               >
                 <Zap className='size-4' />
@@ -137,7 +136,7 @@ const page = () => {
             <span className='inline-block'>&</span>
             <span className='inline-block rotate-[-1.5deg] align-middle'>
               <motion.span
-                className='chip inline-flex cursor-pointer items-center gap-1.5 rounded-[14px] bg-chip-violet px-2.5 py-0.5 font-display text-[1.15rem] italic text-accent-violet transition-transform duration-300 hover:scale-[1.04]'
+                className='chip inline-flex cursor-pointer items-center gap-1.5 rounded-[14px] border border-accent-violet/20 bg-chip-violet px-2.5 py-0.5 font-display text-[1.15rem] italic text-accent-violet shadow-[0_10px_30px_rgba(139,92,246,0.08)] transition-transform duration-300 hover:scale-[1.04]'
                 initial={{ opacity: 0, scale: 1.25 }}
               >
                 <Trophy className='size-4' />
@@ -146,7 +145,7 @@ const page = () => {
             </span>
           </motion.p>
           <motion.div
-            className='resumebutton mt-4'
+            className='resumebutton mt-5'
             initial={{ opacity: 0 }}
             onClick={() => window.open("/SharanResume5.0.pdf", "_blank")}
           >

@@ -30,18 +30,52 @@ const GLYPHS: {
   { c: "=", top: "5%", left: "90%", size: "12px", o: 0.05, delay: "2.6s", dur: "11s" },
 ];
 
+const SIGNAL = [
+  "               +   .  x",
+  "          .  +++===++  .",
+  "        x ++==@@@@@==++",
+  "       . +==@@#####@@==+ .",
+  "        +=@@##+++++##@@=+",
+  "       +=@##++.....++##@=+",
+  "      .+=@#++..   ..++#@=+.",
+  "       +=@##++.....++##@=+",
+  "        +=@@##+++++##@@=+",
+  "       . +==@@#####@@==+ .",
+  "          ++==@@@@@==++",
+  "        x    +++===++  .",
+];
+
 const Atmosphere = () => {
   return (
     <div
       aria-hidden
       className='pointer-events-none fixed inset-0 z-0 hidden dark:block'
     >
-      {/* Smoky radial glow behind the headline area */}
+      {/* A ghostly signal, halfway between a halftone moon and terminal output. */}
       <div
-        className='absolute left-1/2 top-[-14rem] h-[44rem] w-[85vw] max-w-4xl -translate-x-1/2'
+        className='absolute left-1/2 top-[-10rem] h-[48rem] w-[92vw] max-w-5xl -translate-x-1/2'
         style={{
           background:
-            "radial-gradient(closest-side, rgba(244, 239, 230, 0.07), transparent 72%)",
+            "radial-gradient(closest-side, rgba(244,239,230,0.105), rgba(139,92,246,0.025) 46%, transparent 73%)",
+        }}
+      />
+      <pre
+        className='absolute left-1/2 top-[8.5rem] hidden -translate-x-1/2 select-none text-center font-mono text-[10px] leading-[1.05] tracking-[0.22em] text-foreground md:block'
+        style={{
+          opacity: 0.3,
+          animation:
+            "signal-drift 14s cubic-bezier(0.22, 1, 0.36, 1) infinite",
+          maskImage:
+            "linear-gradient(to bottom, transparent, black 22%, black 68%, transparent)",
+        }}
+      >
+        {SIGNAL.join("\n")}
+      </pre>
+      <div
+        className='absolute left-1/2 top-32 h-64 w-64 -translate-x-1/2 rounded-full border border-foreground/[0.035] md:h-80 md:w-80'
+        style={{
+          boxShadow:
+            "inset 0 0 80px rgba(244,239,230,0.025), 0 0 120px rgba(244,239,230,0.035)",
         }}
       />
       {GLYPHS.map((g, i) => (
