@@ -1,37 +1,37 @@
-import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Bebas_Neue, Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/themeprovider";
-import { ThemeBtn } from "@/components/ui/themebtn";
-import Atmosphere from "@/components/atmosphere";
+import Nav from "@/components/nav";
+import SiteFooter from "@/components/site-footer";
+import IntroGate, { INTRO_SCRIPT } from "@/components/intro-gate";
+import { site } from "@/lib/content";
 
+// Stand-in for Spektra — the documented substitute. Extremely condensed, one
+// weight, built for poster scale. Display only; never body.
+const bebas = Bebas_Neue({
+  variable: "--font-bebas",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+// Stand-in for Helvetica Neue LT. Carries every UI label and line of prose.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-display-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-});
-
 const siteUrl = "https://sharansuri.in";
 const siteTitle = "Sharan Suri";
 const siteDescription =
-  "Engineer into breaking stuff down, building web vibes, and vibing with design sometimes. Fullstack @ WebVeda & IGC.";
+  "Fullstack engineer. Checkout and payment infrastructure at WebVeda, founding engineer at IGC. 500K+ records migrated, 0 to 40K users in four months.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: {
-    default: siteTitle,
-    template: `%s · ${siteTitle}`,
-  },
+  title: { default: siteTitle, template: `%s · ${siteTitle}` },
   description: siteDescription,
   applicationName: siteTitle,
-  authors: [{ name: "Sharan Suri", url: siteUrl }],
-  creator: "Sharan Suri",
+  authors: [{ name: site.name, url: siteUrl }],
+  creator: site.name,
   keywords: [
     "Sharan Suri",
     "portfolio",
@@ -40,9 +40,7 @@ export const metadata: Metadata = {
     "WebVeda",
     "IGC",
   ],
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -55,7 +53,7 @@ export const metadata: Metadata = {
         url: "/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Sharan Suri — engineer, fullstack, design",
+        alt: "Sharan Suri — fullstack engineer",
         type: "image/jpeg",
       },
     ],
@@ -66,37 +64,45 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: ["/og.jpg"],
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  colorScheme: "dark",
+};
+
+// The next/font variable classes sit on <html> so --font-bebas and --font-inter
+// are defined at :root. The stacks in globals.css are declared there too, and a
+// custom property that references an undefined variable computes to
+// guaranteed-invalid — inherited as invalid, never re-resolved.
+const fontVars = `${bebas.variable} ${inter.variable}`;
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    // suppressHydrationWarning: INTRO_SCRIPT stamps data-js and data-intro on
+    // <html> before React hydrates, so the client tree legitimately carries
+    // attributes the server markup does not. Scoped to this element only.
+    <html lang='en' className={fontVars} suppressHydrationWarning>
       <head>
         <link rel='icon' href='/favicon.ico' sizes='any' />
+        {/* Runs before first paint so a reload mid-session never flashes the
+            hero cascade before the gate can switch it off. */}
+        <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
       </head>
-      <body
-        className={`${inter.variable} ${instrumentSerif.variable} font-sans antialiased w-screen md:w-full overflow-x-hidden`}
-      >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='dark'
-          enableSystem
-          disableTransitionOnChange
+      <body className='bg-void-black text-bone-cream'>
+        <a
+          href='#main'
+          className='pill pill-compact sr-only focus:not-sr-only focus:fixed focus:left-20 focus:top-20 focus:z-60'
         >
-          <Atmosphere />
-          <div className='fixed bottom-4 right-4 z-20'>
-            <ThemeBtn />
-          </div>
-          {children}
-        </ThemeProvider>
+          Skip to content
+        </a>
+        <IntroGate />
+        <Nav />
+        <div id='main'>{children}</div>
+        <SiteFooter />
       </body>
     </html>
   );

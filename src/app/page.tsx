@@ -1,164 +1,195 @@
-"use client";
-
-import { useEffect } from "react";
-import Navbar from "@/components/navbar";
-import Dashboard from "@/components/dashboard";
-import { motion, useAnimate, stagger } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Sparkles, Trophy, Zap } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
-const page = () => {
-  const [scope, animate] = useAnimate();
+import Hero from "@/components/hero";
+import HazardMark from "@/components/hazard-mark";
+import SectionHead from "@/components/section-head";
+import SectionRule from "@/components/section-rule";
+import StatLedger from "@/components/stat-ledger";
+import EmailDialog from "@/components/email-dialog";
+import InView from "@/components/in-view";
+import { Button } from "@/components/ui/button";
+import { projects, roles, site, stats } from "@/lib/content";
 
-  useEffect(() => {
-    const animations = async (duration: number) => {
-      await animate(
-        ".name",
-        { opacity: 1, y: 0 },
-        {
-          duration: duration * 0.7,
-          ease: [0.22, 1, 0.36, 1],
-        }
-      );
-      await animate(
-        ".description",
-        { opacity: 1, y: 0, filter: "blur(0px)" },
-        {
-          duration: duration * 0.55,
-          ease: [0.22, 1, 0.36, 1],
-          delay: stagger(duration * 0.035),
-        }
-      );
-      await animate(
-        ".wv",
-        { opacity: 1, filter: "blur(0px)" },
-        { duration: duration * 0.6, ease: [0.22, 1, 0.36, 1] }
-      );
-      await animate(
-        ".resumebutton",
-        { opacity: 1 },
-        { duration: duration * 0.6, ease: [0.22, 1, 0.36, 1] }
-      );
-      animate(
-        ".navbar",
-        { y: 0 },
-        { duration: duration * 0.6, ease: [0.22, 1, 0.36, 1] }
-      );
-      await animate(
-        ".navbar",
-        { filter: "blur(0px)" },
-        { duration: duration * 0.5 }
-      );
-      // Chips land last — a sticker being pressed onto the sentence
-      await animate(
-        ".chip",
-        { opacity: 1, scale: [1.25, 0.96, 1] },
-        { duration: duration * 0.45, ease: [0.22, 1, 0.36, 1] }
-      );
-      sessionStorage.setItem("isLoaded", "true");
-    };
-    if (sessionStorage.getItem("isLoaded") === "true") {
-      animations(0);
-      return;
-    }
-    animations(1);
-  }, []);
-
-  const description =
-    "Engineer into breaking stuff down, building web vibes, and vibing with design sometimes.";
-  const words = description.split(" ");
-
+/**
+ * The rhythm: poster → numbered section → dashed rule → next section. Every
+ * section opens with the same eyebrow/title/standfirst shape, so the page reads
+ * as an ordered document rather than a scroll of loose paragraphs.
+ *
+ * Lead paragraphs stay centred — that is the poster voice. Enumerated detail
+ * (roles, projects) left-aligns inside the same 680px column, because a centred
+ * list has no common left edge and the eye has to re-find the start of every
+ * line.
+ */
+export default function Home() {
   return (
-    <div className='w-full' ref={scope}>
-      <Navbar isHome={true} />
-      <div className='relative z-[1] flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden px-4 pb-28 pt-36 md:pb-32 md:pt-44'>
-        <div className='flex w-full max-w-5xl flex-col items-center justify-center gap-7'>
-          <h1 className='max-w-[10ch] text-center font-display text-[clamp(4.5rem,10.5vw,9.25rem)] font-normal leading-[0.88] tracking-[-0.045em] [text-shadow:0_8px_50px_rgba(0,0,0,0.55)] md:max-w-none'>
-            <motion.span className='name mr-[0.18em] inline-block opacity-0'>
-              Sharan
-            </motion.span>
-            <motion.span className='name inline-block' initial={{ opacity: 0 }}>
-              <span className='inline-block rotate-[-2deg] align-baseline'>
-                <motion.span
-                  className='chip inline-flex items-center gap-[0.12em] rounded-[0.2em] border border-accent-violet/20 bg-chip-violet px-[0.28em] py-[0.025em] italic text-accent-violet shadow-[0_18px_60px_rgba(139,92,246,0.08)]'
-                  initial={{ opacity: 0, scale: 1.25 }}
-                >
-                  <Sparkles className='size-4 md:size-5' />
-                  Suri
-                </motion.span>
-              </span>
-              .
-            </motion.span>
-          </h1>
-          <p className='flex max-w-[34rem] flex-row flex-wrap justify-center gap-x-1.5 gap-y-1 px-4 text-center text-[1.05rem] leading-[1.65] text-muted-foreground md:px-0 md:text-[1.15rem]'>
-            {words.map((word, index) => (
-              <motion.span
-                key={index}
-                className='description'
-                initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-              >
-                {word}
-              </motion.span>
-            ))}
-          </p>
+    <main>
+      <Hero eyebrow='Portfolio' lines={["Sharan", "Suri"]}>
+        <p className='prose-column text-body'>
+          Fullstack engineer. I build checkout and payment infrastructure, quiz
+          engines and ranking systems — the parts that break first when traffic
+          arrives, and the parts nobody notices when they hold.
+        </p>
 
-          <motion.p
-            className='wv flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2.5 px-2 text-center text-[0.98rem] text-muted-foreground'
-            initial={{ opacity: 0, filter: "blur(2px)" }}
-          >
-            <motion.span
-              layout
-              className='group relative inline-block cursor-pointer text-foreground'
-              whileHover='hover'
-            >
-              <Link href='/projects'>Fullstack</Link>
-              <motion.span
-                className='absolute bottom-0 left-0 h-[1px] w-0 bg-accent-green'
-                variants={{
-                  hover: {
-                    width: "100%",
-                    transition: { duration: 0.3, ease: "easeOut" },
-                  },
-                }}
-              />
-            </motion.span>
-            <span className='inline-block'>@</span>
-            <span className='inline-block rotate-[1.5deg] align-middle'>
-              <motion.span
-                className='chip inline-flex cursor-pointer items-center gap-1.5 rounded-[14px] border border-accent-peach/15 bg-chip-peach px-2.5 py-0.5 font-display text-[1.15rem] italic text-chip-peach-ink shadow-[0_10px_30px_rgba(249,115,22,0.08)] transition-transform duration-300 hover:scale-[1.04]'
-                initial={{ opacity: 0, scale: 1.25 }}
-              >
-                <Zap className='size-4' />
-                <Link href='/work'>WebVeda</Link>
-              </motion.span>
-            </span>
-            <span className='inline-block'>&</span>
-            <span className='inline-block rotate-[-1.5deg] align-middle'>
-              <motion.span
-                className='chip inline-flex cursor-pointer items-center gap-1.5 rounded-[14px] border border-accent-violet/20 bg-chip-violet px-2.5 py-0.5 font-display text-[1.15rem] italic text-accent-violet shadow-[0_10px_30px_rgba(139,92,246,0.08)] transition-transform duration-300 hover:scale-[1.04]'
-                initial={{ opacity: 0, scale: 1.25 }}
-              >
-                <Trophy className='size-4' />
-                <Link href='/work'>IGC</Link>
-              </motion.span>
-            </span>
-          </motion.p>
-          <motion.div
-            className='resumebutton mt-5'
-            initial={{ opacity: 0 }}
-            onClick={() => window.open("/SharanResume5.0.pdf", "_blank")}
-          >
-            <Button size='lg' className='cursor-pointer'>
-              View resume
-              <ArrowUpRight className='size-5' />
-            </Button>
-          </motion.div>
+        <div className='mt-30 flex flex-wrap items-center justify-center gap-20'>
+          <Button asChild>
+            <a href={site.resume} target='_blank' rel='noopener noreferrer'>
+              Read the resume
+            </a>
+          </Button>
+          <EmailDialog>Get in touch</EmailDialog>
         </div>
-      </div>
-      <Dashboard />
-    </div>
-  );
-};
+      </Hero>
 
-export default page;
+      <section className='w-full px-20 pt-80'>
+        <InView>
+          <SectionHead
+            index='01'
+            eyebrow='The record'
+            title='Shipped against real traffic'
+            standfirst='Three teams since 2021. The pattern is always the same — find the number that stopped moving, work out which system broke it, rebuild that system.'
+            symbol='fire'
+          />
+        </InView>
+
+        <InView delay={80} className='prose-column mt-40 text-left text-body'>
+          <p>
+            At{" "}
+            <Link href='/work' className='link-underline'>
+              WebVeda
+            </Link>{" "}
+            I own checkout and payments — Razorpay and Stripe moving 10,000+
+            transactions a month — and I shipped the 2.0 relaunch, migrating
+            500,000+ user records with virtually zero downtime. Promoted to Tech
+            Lead inside twelve months, then rebuilt the entire checkout flow over
+            a single weekend when a 3x surge in initiations against flat
+            conversion exposed a broken funnel.
+          </p>
+          <p>
+            At IGC I was the founding engineer: zero to 40,000 users in four
+            months, a dynamic quiz engine over a 10,000-question bank, and an ELO
+            ladder for the whole user base that cut database load ~60% by
+            computing daily instead of{" "}
+            <span className='link-strike'>in real time</span> pretending to be
+            live.
+          </p>
+        </InView>
+      </section>
+
+      <SectionRule symbol='radiation' className='mt-80' />
+
+      <section className='w-full px-20 pt-80'>
+        <InView>
+          <SectionHead
+            index='02'
+            eyebrow='Readout'
+            title='What the work moved'
+            standfirst='Measured in production, not in slides.'
+            symbol='radiation'
+          />
+        </InView>
+
+        <div className='mt-40'>
+          <StatLedger stats={stats} />
+        </div>
+      </section>
+
+      <SectionRule symbol='biohazard' className='mt-80' />
+
+      <section className='w-full px-20 pt-80'>
+        <InView>
+          <SectionHead
+            index='03'
+            eyebrow='Postings'
+            title='Where it happened'
+            symbol='biohazard'
+          />
+        </InView>
+
+        <ol className='prose-column mt-40 flex flex-col gap-40 text-left'>
+          {roles.map((role, index) => (
+            <InView
+              as='li'
+              key={role.id}
+              delay={index * 70}
+              className='border-t border-dashed border-alarm-red pt-25'
+            >
+              <p className='flex items-center gap-8'>
+                <HazardMark symbol='fire' size={14} />
+                <span className='text-caption font-extrabold uppercase tracking-[0.12em]'>
+                  {role.period}
+                </span>
+              </p>
+
+              <h3 className='display-type mt-12 text-heading'>{role.company}</h3>
+
+              <p className='mt-7 text-caption font-extrabold uppercase tracking-[0.12em]'>
+                {role.title}
+              </p>
+
+              <p className='mt-15 text-body'>{role.summary}</p>
+            </InView>
+          ))}
+        </ol>
+
+        <p className='prose-column mt-40 text-body'>
+          <Link href='/work' className='link-underline'>
+            The long version
+          </Link>
+        </p>
+      </section>
+
+      <SectionRule symbol='skull' className='mt-80' />
+
+      <section className='w-full px-20 pb-40 pt-80'>
+        <InView>
+          <SectionHead
+            index='04'
+            eyebrow='The lab'
+            title='Built to answer a question'
+            symbol='skull'
+          />
+        </InView>
+
+        <ol className='mx-auto mt-40 flex w-full max-w-[860px] flex-col gap-60 text-left'>
+          {projects.map((project, index) => (
+            <InView as='li' key={project.id} delay={index * 70}>
+              <Link
+                href='/projects'
+                className='row-link block border-t border-dashed border-alarm-red pt-25'
+              >
+                <p className='text-caption font-extrabold uppercase tracking-[0.12em]'>
+                  {project.discipline} — {project.year}
+                </p>
+
+                <h3 className='row-title display-type mt-12 text-heading'>
+                  {project.title}
+                </h3>
+
+                <p className='mt-15 max-w-[680px] text-body'>
+                  {project.description}
+                </p>
+
+                <span className='evidence mt-25 block'>
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} — ${project.discipline}`}
+                    width={1440}
+                    height={900}
+                    className='h-auto w-full'
+                  />
+                </span>
+              </Link>
+            </InView>
+          ))}
+        </ol>
+
+        <p className='prose-column mt-40 text-body'>
+          <Link href='/projects' className='link-underline'>
+            All projects
+          </Link>
+        </p>
+      </section>
+    </main>
+  );
+}

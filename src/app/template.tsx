@@ -1,82 +1,22 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-    filter: "blur(10px)",
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -20,
-    filter: "blur(10px)",
-    transition: {
-      duration: 0.4,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
+/**
+ * Route transition. A short crossfade only — no slide, no scale.
+ *
+ * The design is print, not app: the spec caps interaction transitions at about
+ * 150ms, and navigation is the single most repeated action on the site. Every
+ * millisecond here is paid on every click, so this stays at the floor and gets
+ * out of the way. CSS rather than a JS tween because it fires exactly while the
+ * browser is painting the incoming route.
+ */
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const prevPathname = useRef<string | null>(null);
-  const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    // Check if pathname changed (page transition)
-    // Skip on initial mount (when prevPathname is null)
-    if (prevPathname.current !== null && prevPathname.current !== pathname) {
-      // Disable scrolling when transition starts
-      document.body.style.overflowY = "hidden";
-      
-      // Clear any existing timeout
-      if (animationTimeoutRef.current) {
-        clearTimeout(animationTimeoutRef.current);
-      }
-      
-      // Re-enable scrolling after both exit (0.4s) and enter (0.5s) animations complete
-      // Add small buffer for safety
-      animationTimeoutRef.current = setTimeout(() => {
-        document.body.style.overflowY = "";
-      }, 400 + 500 + 50); // exit duration + enter duration + buffer
-    }
-    
-    // Update previous pathname
-    prevPathname.current = pathname;
-
-    return () => {
-      if (animationTimeoutRef.current) {
-        clearTimeout(animationTimeoutRef.current);
-      }
-    };
-  }, [pathname]);
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={pathname}
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        className="w-full"
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <div key={pathname} className='page-enter'>
+      {children}
+    </div>
   );
 }
-

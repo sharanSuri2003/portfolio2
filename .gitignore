@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local agent tooling — not part of the site
+# .claude/skills holds directory junctions into .agents/skills; git would store
+# each as a real directory and commit a second copy of every skill.
+/.agents/
+/.claude/
+/gauntlet-loop/
+/skills-lock.json

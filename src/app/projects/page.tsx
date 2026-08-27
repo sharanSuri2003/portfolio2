@@ -1,95 +1,109 @@
-import Navbar from "@/components/navbar";
+import type { Metadata } from "next";
 import Image from "next/image";
-import {
-  SiSelenium,
-  SiReact,
-  SiPython,
-  SiFlask,
-  SiKeras,
-  SiGithub,
-} from "react-icons/si";
-const projects = [
-  {
-    id: 1,
-    title: "Siggy",
-    description:
-      "Siggy is a web scraping tool built with Selenium that extracts menu items from Swiggy and recommends food options tailored to your budget, making dining decisions effortless.",
-    image: "/siggy.png",
-    icons: [<SiSelenium />, <SiReact />, <SiPython />, <SiFlask />],
-    link: "https://github.com/Sharan420/siggy-frontend",
-  },
-  {
-    id: 2,
-    title: "Traffix",
-    description:
-      "Keras is used to optimize traffic light timings by real-time traffic density detection, enhancing urban transportation efficiency and reducing congestion.",
-    image: "/traffixpng.png",
-    icons: [<SiKeras />, <SiPython />],
-    link: "https://github.com/Sharan420/Traffic-Classifier",
-  },
-];
 
-const page = () => {
-  return (
-    <>
-      <Navbar />
-      <main className='relative z-[1] min-h-screen w-full px-5 md:px-6'>
-        <div className='mx-auto flex w-full max-w-5xl flex-col items-center pb-36 pt-36 md:pb-48 md:pt-52'>
-          <h1 className='mb-20 text-center font-display text-[clamp(4.5rem,10vw,8.5rem)] font-normal leading-none tracking-[-0.045em] md:mb-28'>
-            Projects.
-          </h1>
-          <div className='flex w-full flex-col gap-6 md:gap-8'>
-          {projects.map((project, projectIndex) => (
-            <section
-              className='group relative flex w-full flex-col items-start overflow-hidden rounded-[28px] border border-border bg-card/80 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.18)] backdrop-blur-sm transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-foreground/[0.13] md:p-12'
-              key={project.id}
-            >
-              <span className='absolute right-6 top-5 font-mono text-xs tracking-[0.16em] text-muted-foreground/55 md:right-10 md:top-9'>
-                {String(projectIndex + 1).padStart(2, "0")}
-              </span>
-              <div className='mb-6 h-px w-12 bg-accent-green/70 transition-[width] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-20 md:mb-8' />
-              <h2 className='flex flex-row items-center gap-4 font-display text-4xl font-normal tracking-[-0.02em] md:text-6xl'>
-                {`${project.title}`}
-                {project.link && (
-                  <a
-                    href={project.link}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='flex items-center justify-center rounded-full border border-border p-2.5 text-base text-muted-foreground transition-all duration-500 hover:scale-105 hover:border-accent-green hover:text-foreground'
-                  >
-                    <SiGithub />
-                  </a>
-                )}
-              </h2>
-              <div className='mt-1 flex flex-row items-center justify-center gap-2 text-muted-foreground'>
-                {project.icons.map((icon, index) => (
-                  <div
-                    className='flex size-8 items-center justify-center rounded-full border border-border bg-background/40 text-sm'
-                    key={index}
-                  >
-                    {icon}
-                  </div>
-                ))}
-              </div>
-              <p className='mt-3 max-w-2xl text-[0.95rem] leading-[1.7] text-muted-foreground md:text-base'>
-                {project.description}
-              </p>
-              <div className='mt-5 w-full overflow-hidden rounded-[20px] border border-border bg-surface-light p-2 shadow-[0_24px_70px_rgba(0,0,0,0.22)] md:mt-8 md:p-3'>
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={700}
-                  height={400}
-                  className='h-auto w-full rounded-[14px] object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.015]'
-                />
-              </div>
-            </section>
-          ))}
-          </div>
-        </div>
-      </main>
-    </>
-  );
+import Hero from "@/components/hero";
+import SectionHead from "@/components/section-head";
+import SectionRule from "@/components/section-rule";
+import EmailDialog from "@/components/email-dialog";
+import InView from "@/components/in-view";
+import { Button } from "@/components/ui/button";
+import { projects, site } from "@/lib/content";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Siggy and Traffix — independent builds in automation, web scraping, machine learning and computer vision.",
 };
 
-export default page;
+export default function ProjectsPage() {
+  return (
+    <main>
+      <Hero eyebrow='Sharan Suri' lines={["The", "lab"]}>
+        <p className='prose-column text-body'>
+          Independent builds — made to answer a question, kept because they
+          worked.
+        </p>
+      </Hero>
+
+      {projects.map((project, index) => (
+        <div key={project.id}>
+          {index > 0 ? (
+            <SectionRule symbol='biohazard' className='mt-80' />
+          ) : null}
+
+          <section className='w-full px-20 pt-80'>
+            <InView>
+              <SectionHead
+                index={project.id}
+                eyebrow={`${project.discipline} — ${project.year}`}
+                title={project.title}
+                standfirst={project.description}
+                symbol='biohazard'
+              />
+            </InView>
+
+            {/* The evidence. Desaturated at rest so a stray off-palette
+                screenshot can't smuggle a second accent colour into a
+                two-colour system, resolving on the one you're looking at. */}
+            <InView delay={80} className='mx-auto mt-40 max-w-[860px]'>
+              <a
+                href={project.href}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='evidence press block'
+              >
+                <Image
+                  src={project.image}
+                  alt={`${project.title} — ${project.discipline}`}
+                  width={1440}
+                  height={900}
+                  className='h-auto w-full'
+                />
+              </a>
+            </InView>
+
+            <InView delay={140}>
+              <p className='prose-column mt-30 border-t border-dashed border-alarm-red pt-20 text-caption font-extrabold uppercase tracking-[0.12em]'>
+                {project.stack.join(" · ")}
+              </p>
+
+              <p className='prose-column mt-20 text-body'>
+                <a
+                  href={project.href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='link-underline'
+                >
+                  View source
+                </a>
+              </p>
+            </InView>
+          </section>
+        </div>
+      ))}
+
+      <SectionRule symbol='skull' className='mt-80' />
+
+      <section className='w-full px-20 pb-40 pt-80'>
+        <InView>
+          <SectionHead
+            index='03'
+            eyebrow='Backlog'
+            title='More in the works'
+            standfirst='Everything half-finished lives on GitHub until it earns a page here.'
+            symbol='skull'
+          />
+        </InView>
+
+        <InView delay={80} className='mt-40 flex flex-wrap items-center justify-center gap-20'>
+          <Button asChild>
+            <a href={site.github} target='_blank' rel='noopener noreferrer'>
+              Browse GitHub
+            </a>
+          </Button>
+          <EmailDialog>Get in touch</EmailDialog>
+        </InView>
+      </section>
+    </main>
+  );
+}

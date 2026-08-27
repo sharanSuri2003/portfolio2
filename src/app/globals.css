@@ -1,235 +1,480 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* Touch targets relax back to the documented padding once there is a mouse. */
+@custom-variant pointer-fine (@media (pointer: fine));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-display-serif);
-  --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-accent-green: var(--accent-green);
-  --color-accent-violet: var(--accent-violet);
-  --color-accent-peach: var(--accent-peach);
-  --color-surface-light: var(--surface-light);
-  --color-chip-violet: var(--chip-violet-bg);
-  --color-chip-peach: var(--chip-peach-bg);
-  --color-chip-peach-ink: var(--chip-peach-ink);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+/* ---------------------------------------------------------------------------
+   Climate Catastrophe — emergency broadcast on a pitch-black field.
+   Tokens transcribed from DESIGN.md. Cream is the ink, red is the alarm, and
+   nothing else gets a colour. No gradients, no soft shadows, no elevation
+   beyond the one hard offset under a pill button.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* ---- colors ---- */
+  --color-void-black: #000000;
+  --color-bone-cream: #ebe4d8;
+  --color-ash-taupe: #c3bdb3;
+  --color-alarm-red: #ff4034;
+
+  /* ---- font families ---- see the :root block below for the stacks ---- */
+  --font-spektra: var(--stack-display);
+  --font-helvetica: var(--stack-body);
+
+  /* ---- type scale ----
+     The display sizes ceiling at the documented 202px / 100px / 40px but ramp
+     down with the viewport. Held rigid, a 202px headline is four times the
+     width of a phone. The floor never drops under 32px — below that the
+     condensed face stops being readable, which the spec forbids outright. */
+  --text-caption: 14px;
+  --text-caption--line-height: 1.27;
+  --text-body: 16px;
+  --text-body--line-height: 1.27;
+  --text-subheading: 28px;
+  --text-subheading--line-height: 1.5;
+  --text-heading-sm: 30px;
+  --text-heading-sm--line-height: 1.5;
+  --text-heading: clamp(32px, 6vw, 40px);
+  --text-heading--line-height: 0.88;
+  --text-heading-lg: clamp(52px, 12vw, 100px);
+  --text-heading-lg--line-height: 0.88;
+  --text-display: clamp(64px, 21vw, 202px);
+  --text-display--line-height: 0.82;
+
+  /* ---- spacing: the token number is the pixel value ---- */
+  --spacing-7: 7px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-14: 14px;
+  --spacing-15: 15px;
+  --spacing-20: 20px;
+  --spacing-25: 25px;
+  --spacing-29: 29px;
+  --spacing-30: 30px;
+  --spacing-40: 40px;
+  --spacing-60: 60px;
+  --spacing-80: 80px;
+  --spacing-100: 100px;
+  --spacing-168: 168px;
+
+  /* ---- radius: extreme roundness or none. There is no 4–8px in here. ---- */
+  --radius-input: 10px;
+  --radius-button-sm: 48px;
+  --radius-button-md: 80px;
+  --radius-button-lg: 120px;
+  --radius-card: 2520px;
+
+  /* ---- motion ----
+     Print, not app. Nothing in the UI runs past 150ms, and the curve is a
+     strong ease-out so movement starts on the frame the user asked for it. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --dur-fast: 100ms;
+  --dur-ui: 150ms;
 }
 
+/* The font stacks live outside @theme on purpose. Tailwind only emits a theme
+   variable when some utility references it, and the hand-written component
+   classes below reach for these through plain var() — which the scanner can't
+   see, so the tokens would be pruned and every face would fall back.
+   A plain :root declaration is always emitted.
+
+   Spektra is a licensed face; Bebas Neue is the documented substitute
+   (extremely condensed, single weight, built for poster scale).
+   Helvetica Neue LT → Inter. */
 :root {
-  /* ---- design system palette ---- */
-  --bg-canvas: #0b0b0a;
-  --bg-elevated: #161614;
-  --ink-cream: #f4efe6;
-  --ink-muted: #9a968d;
-  --accent-green: #22c55e;
-  --accent-violet: #8b5cf6;
-  --chip-violet-bg: rgba(139, 92, 246, 0.16);
-  --accent-peach: #f97316;
-  --chip-peach-bg: rgba(253, 230, 210, 0.95);
-  --chip-peach-ink: #c2410c;
-  --surface-light: #fbf9f4;
-  --surface-light-card: #fffefa;
-  --surface-light-ink: #1a1915;
-  --surface-light-muted: #777166;
-  --surface-light-line: rgba(26, 25, 21, 0.08);
-  --surface-green-soft: rgba(34, 197, 94, 0.12);
-  --glow-secondary: rgba(244, 239, 230, 0.22);
+  --stack-display: var(--font-bebas), "Anton", "League Gothic", Impact,
+    sans-serif;
+  --stack-body: var(--font-inter), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
 
-  /* ---- component tokens (dark canvas is the default voice) ---- */
-  --radius: 1rem;
-  --background: var(--bg-canvas);
-  --foreground: var(--ink-cream);
-  --card: var(--bg-elevated);
-  --card-foreground: var(--ink-cream);
-  --popover: var(--bg-elevated);
-  --popover-foreground: var(--ink-cream);
-  --primary: var(--ink-cream);
-  --primary-foreground: var(--bg-canvas);
-  --secondary: var(--ink-cream);
-  --secondary-foreground: #12110f;
-  --muted: rgba(244, 239, 230, 0.06);
-  --muted-foreground: var(--ink-muted);
-  --accent: rgba(244, 239, 230, 0.08);
-  --accent-foreground: var(--ink-cream);
-  --destructive: #ef4444;
-  --border: rgba(244, 239, 230, 0.08);
-  --input: rgba(244, 239, 230, 0.12);
-  --ring: rgba(34, 197, 94, 0.5);
-  --chart-1: var(--accent-green);
-  --chart-2: var(--accent-violet);
-  --chart-3: var(--accent-peach);
-  --chart-4: var(--ink-muted);
-  --chart-5: var(--ink-cream);
-  --sidebar: var(--bg-elevated);
-  --sidebar-foreground: var(--ink-cream);
-  --sidebar-primary: var(--accent-green);
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(244, 239, 230, 0.08);
-  --sidebar-accent-foreground: var(--ink-cream);
-  --sidebar-border: rgba(244, 239, 230, 0.08);
-  --sidebar-ring: rgba(34, 197, 94, 0.5);
-}
-
-.dark {
-  --background: var(--bg-canvas);
-  --foreground: var(--ink-cream);
-  --card: var(--bg-elevated);
-  --card-foreground: var(--ink-cream);
-  --popover: var(--bg-elevated);
-  --popover-foreground: var(--ink-cream);
-  --primary: var(--ink-cream);
-  --primary-foreground: var(--bg-canvas);
-  --secondary: var(--ink-cream);
-  --secondary-foreground: #12110f;
-  --muted: rgba(244, 239, 230, 0.06);
-  --muted-foreground: var(--ink-muted);
-  --accent: rgba(244, 239, 230, 0.08);
-  --accent-foreground: var(--ink-cream);
-  --border: rgba(244, 239, 230, 0.08);
-  --input: rgba(244, 239, 230, 0.12);
-  --ring: rgba(34, 197, 94, 0.5);
-  --glow-secondary: rgba(244, 239, 230, 0.22);
-}
-
-/* Light theme: the cream editorial inverse — --surface-light canvas, warm near-black ink */
-.light {
-  --background: var(--surface-light);
-  --foreground: #1a1915;
-  --card: #ffffff;
-  --card-foreground: #1a1915;
-  --popover: #ffffff;
-  --popover-foreground: #1a1915;
-  --primary: #1a1915;
-  --primary-foreground: var(--ink-cream);
-  --secondary: #1a1915;
-  --secondary-foreground: var(--ink-cream);
-  --muted: rgba(26, 25, 21, 0.05);
-  --muted-foreground: #6f6a5e;
-  --accent: rgba(26, 25, 21, 0.06);
-  --accent-foreground: #1a1915;
-  --border: rgba(26, 25, 21, 0.08);
-  --input: rgba(26, 25, 21, 0.12);
-  --ring: rgba(34, 197, 94, 0.5);
-  --chip-violet-bg: rgba(139, 92, 246, 0.14);
-  --glow-secondary: rgba(26, 25, 21, 0.18);
+  /* ---- layout ---- */
+  --page-max-width: 680px;
+  --section-gap: 80px;
+  --card-padding: 30px;
+  --element-gap: 20px;
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply min-h-screen bg-background text-foreground font-sans;
-    text-rendering: optimizeLegibility;
-    background-attachment: fixed;
-  }
-  /* Light sections trade glyph noise for a faint dotted grid */
-  .light body {
-    background-image: radial-gradient(
-      rgba(26, 25, 21, 0.1) 1px,
-      transparent 1px
-    );
-    background-size: 24px 24px;
-  }
-  ::selection {
-    background: rgba(34, 197, 94, 0.35);
-    color: var(--foreground);
-  }
-  button,
-  a {
-    -webkit-tap-highlight-color: transparent;
-  }
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body::before {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  content: "";
-  opacity: 0.22;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-  mix-blend-mode: soft-light;
-}
-
-.light body::before {
-  display: none;
-}
-
-/* Background glyphs flicker very slowly — signal noise, not decoration */
-@keyframes glyph-flicker {
-  0%,
-  100% {
-    opacity: var(--glyph-o, 0.06);
-  }
-  50% {
-    opacity: calc(var(--glyph-o, 0.06) * 0.35);
-  }
-}
-
-@keyframes signal-drift {
-  0%,
-  100% {
-    transform: translate3d(-50%, 0, 0) scale(1);
-    opacity: 0.34;
-  }
-  50% {
-    transform: translate3d(-50%, 12px, 0) scale(1.025);
-    opacity: 0.22;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: auto;
+    background-color: var(--color-void-black);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
   }
 
+  body {
+    background-color: var(--color-void-black);
+    color: var(--color-bone-cream);
+    font-family: var(--stack-body);
+    font-size: 16px;
+    line-height: 1.27;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-alarm-red);
+    color: var(--color-bone-cream);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-alarm-red);
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void-black);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-bone-cream);
+  }
+}
+
+@layer components {
+  /* The poster voice. Condensed, uppercase, and only ever large — the spec
+     forbids this face below 32px. */
+  .display-type {
+    font-family: var(--stack-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+
+  /* The centred editorial column. Everything readable lives inside this. */
+  .prose-column {
+    width: 100%;
+    max-width: var(--page-max-width);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .prose-column > p + p {
+    margin-top: 30px;
+  }
+
+  /* Standard editorial link: cream, 1px cream underline, no colour shift.
+     Press feedback is opacity rather than the usual scale — these sit inline
+     inside prose and wrap across lines, where a transform does not apply at
+     all and forcing inline-block would break the wrap. */
+  .link-underline {
+    color: var(--color-bone-cream);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .link-underline:active {
+    opacity: 0.6;
+  }
+
+  /* The signature correction device — the one place red enters body type. */
+  .link-strike {
+    color: var(--color-alarm-red);
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+
+  /* Filled pill. The 0 4px 0 offset is the only shadow in the entire system:
+     hard-edged, no blur, so the button reads as stamped rather than floated. */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: var(--radius-button-lg);
+    background-color: var(--color-bone-cream);
+    color: var(--color-void-black);
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 1.27;
+    padding: 20px 60px;
+    box-shadow: 0 4px 0 var(--color-ash-taupe);
+    transition:
+      transform var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out),
+      background-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
+  }
+
+  /* Pressing drives the button down onto its own shadow. The travel and the
+     shadow collapse by the same 4px, so the face lands exactly where the
+     shadow was — it reads as a physical stamp, not a scale tween. */
+  .pill:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--color-ash-taupe);
+  }
+
+  .pill-compact {
+    padding: 7px 15px;
+    border-radius: var(--radius-button-md);
+  }
+
+  /* Filled with the page colour rather than left transparent. Identical on the
+     black canvas, but the nav is fixed — with a transparent fill, display type
+     scrolling underneath reads straight through the pills and the bar starts
+     competing with the content it is supposed to stay out of the way of. */
+  .pill-outline {
+    background-color: var(--color-void-black);
+    color: var(--color-bone-cream);
+    box-shadow: inset 0 0 0 1px var(--color-bone-cream);
+  }
+
+  .pill-outline:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 0 0 1px var(--color-bone-cream);
+  }
+
+  /* The only hover state in the system, and it is a straight figure-ground
+     flip rather than a tint — there is no third colour to fade toward.
+     Gated so a tap on a phone doesn't leave a pill stuck filled. */
+  @media (hover: hover) and (pointer: fine) {
+    .pill-outline:hover {
+      background-color: var(--color-bone-cream);
+      color: var(--color-void-black);
+    }
+  }
+
+  /* Pills sitting on the Bone Paper surface invert: black fill, cream text.
+     The ash-taupe offset still reads here — that tint exists precisely for a
+     shadow cast onto cream. */
+  .pill-ink {
+    background-color: var(--color-void-black);
+    color: var(--color-bone-cream);
+  }
+
+  .pill-ink-outline {
+    background-color: transparent;
+    color: var(--color-void-black);
+    box-shadow: inset 0 0 0 1px var(--color-void-black);
+  }
+
+  .pill-ink-outline:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 0 0 1px var(--color-void-black);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .pill-ink-outline:hover {
+      background-color: var(--color-void-black);
+      color: var(--color-bone-cream);
+    }
+  }
+
+  /* Scroll reveal. Transition rather than keyframes so a fast scroll retargets
+     instead of restarting, and only opacity/transform so it composites.
+
+     The hidden state is gated behind [data-js], stamped on <html> before first
+     paint. Unconditionally hiding here would mean that any document without
+     JavaScript renders as a page of blank space waiting for an observer that is
+     never going to run — the content has to be visible by default and hidden
+     only once something is guaranteed to reveal it again. */
+  .in-view {
+    transition:
+      opacity 420ms var(--ease-out) var(--delay, 0ms),
+      transform 420ms var(--ease-out) var(--delay, 0ms);
+  }
+
+  [data-js] .in-view:not(.is-shown) {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+
+  /* Evidence frame: a project screenshot, contained. Desaturated at rest so a
+     stray off-palette shot can't introduce a second accent colour, resolving
+     to full colour on the one you're actually looking at. 10px is the smallest
+     radius the system allows; the 2520px card radius would make an ellipse of
+     a landscape screenshot. */
+  .evidence {
+    border-radius: var(--radius-input);
+    overflow: hidden;
+    border: 1px solid var(--color-bone-cream);
+  }
+
+  .evidence img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: grayscale(1) contrast(1.05);
+    transition: filter var(--dur-ui) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .evidence:hover img,
+    a:hover .evidence img {
+      filter: grayscale(0) contrast(1);
+    }
+  }
+
+  /* Row hover for the enumerated lists — the title takes the underline so the
+     whole row reads as one target without needing a background flip. */
+  @media (hover: hover) and (pointer: fine) {
+    .row-link:hover .row-title {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 6px;
+    }
+  }
+
+  /* Generic press feedback for anything that is not a pill. */
+  .press {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .press:active {
+    transform: scale(0.97);
+  }
+
+  /* ---- hero load-in ----------------------------------------------------
+     A stagger of masked line reveals: each line sits in its own overflow
+     clip and rises into it, one after the next, on a strong ease-out.
+
+     These run past the 150ms UI budget on purpose. That ceiling governs
+     transitions a user triggers dozens of times a session — hovers, presses,
+     route changes. This plays once on first paint, where the extra duration
+     is what makes the type read as settling rather than snapping.
+
+     Written as CSS animations rather than a JS tween because this fires while
+     the browser is still parsing and painting the rest of the document; a
+     requestAnimationFrame tween drops frames under exactly that load.
+     `both` fill holds the from-state through the delay, so nothing flashes
+     un-animated first, and the resting state stays visible if the animation
+     never runs at all. */
+  .reveal-line {
+    display: block;
+    overflow: hidden;
+    /* Descenders need room inside the clip; the negative margin keeps the
+       extra space from opening a gap in the stack. */
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  .reveal-line > * {
+    display: block;
+    animation: line-rise 900ms var(--ease-out) var(--delay, 0ms) both;
+  }
+
+  .rise-in {
+    animation: rise-in 700ms var(--ease-out) var(--delay, 0ms) both;
+  }
+
+  .ring-in {
+    animation: ring-in 1100ms var(--ease-out) var(--delay, 0ms) both;
+  }
+
+  /* Route enter — see template.tsx. Held at the interaction floor because it
+     is paid on every single navigation. */
+  .page-enter {
+    animation: page-enter var(--dur-ui) var(--ease-out) both;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The flame band's two layers drift in opposite directions at different speeds.
+   Constant motion, so linear — an eased marquee visibly stutters at the seam.
+   Each layer is two identical tiles across a double-width box, so exactly -50%
+   (or +50% back) lands tile two where tile one started and the loop is
+   invisible. Slow on purpose: this is ambient furniture, not an event. */
+.flame-drift-front {
+  animation: flame-drift-front 19s linear infinite;
+}
+
+.flame-drift-back {
+  animation: flame-drift-back 27s linear infinite;
+}
+
+@keyframes flame-drift-front {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes flame-drift-back {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* The intro is a first-paint event, not a per-route one. `template.tsx` keys on
+   the pathname, so every navigation remounts the subtree and restarts every CSS
+   animation underneath it — which meant paying the full ~1.2s hero cascade on
+   each click. Once the intro has played, this switches it off for the rest of
+   the session; see IntroGate, which sets the attribute both before first paint
+   and after the cascade finishes. */
+[data-intro="done"] .reveal-line > *,
+[data-intro="done"] .rise-in,
+[data-intro="done"] .ring-in {
+  animation: none;
+}
+
+@keyframes line-rise {
+  from {
+    transform: translate3d(0, 110%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* The radar expands outward from the centre as the page lands, so the rings
+   read as a sweep rather than as static furniture that was always there.
+   Only `scale` is animated: Tailwind v4 centres these with the separate
+   `translate` property, and re-declaring a transform here would apply the
+   -50% offset a second time. */
+@keyframes ring-in {
+  from {
+    opacity: 0;
+    scale: 0.72;
+  }
+}
+
+/* Reduced motion means fewer and gentler animations, not none. Colour and
+   opacity still carry meaning; only the movement goes. */
+@media (prefers-reduced-motion: reduce) {
   *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
+  ::after,
+  ::before {
+    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
+    transition-property: opacity, color, background-color, border-color,
+      box-shadow !important;
+    transition-duration: 150ms !important;
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+  }
+
+  .pill:active,
+  .pill-outline:active,
+  .press:active {
+    transform: none;
+  }
+
+  /* Fade in place rather than snapping 12px once the transform is dropped. */
+  [data-js] .in-view:not(.is-shown) {
+    transform: none;
   }
 }
