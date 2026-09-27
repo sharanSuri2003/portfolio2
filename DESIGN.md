@@ -1,282 +1,299 @@
-# Climate Catastrophe — Style Reference
+# Sticker Sheet — Style Reference
 
-> Emergency broadcast on a pitch-black field. Poster-scale condensed type, cream ink, and red reserved for the things that need you to pay attention.
+> Inflatable sticker universe on bone-cream paper. The Slush scheme — crushed display type, pill controls, black hand-cut outlines, full-bleed color bands — painted only in the four colors this site already had.
 
-**Theme:** dark
+**Theme:** light
 
-Cards Against Humanity's Climate Catastrophe Pack deploys an emergency-broadcast aesthetic: a pitch-black canvas saturated with flat, vivid red as the only chromatic signal. Typography does almost all of the heavy lifting — an extreme condensed display face (Spektra) stacked in 200+ px blocks creates poster-sized alarm, while the body text is a quiet, humanist sans (Helvetica Neue) that reads like a caption on a civil defense poster. The page is content-sparse and editorial: no dashboards, no product cards, no marketing chrome — just a large headline, centered prose, and scattered red hazard glyphs orbiting a radar/concentric-circle motif. Color is used surgically: cream for almost all readable text, red reserved for annotations (strikethrough corrections, underlined links, flame graphics, icon squares), with the red itself functioning less as decoration than as a wayfinding color for 'pay attention here.' There is essentially no elevation system, no soft cards, no shadows — the design rejects SaaS niceties in favor of a printed-flyer feel where information sits directly on the black page like ink on a wall.
+Source measurements are normalized; roles and recommendations are interpreted. Font summary lists are independent, not paired by position.
+
+The page runs on sticker-book logic: a bone-cream paper canvas, a huge inflated ribbon in Alarm Red, and sticker accents cut from the same four colors, scattered like confetti. Display type is enormous and crushed (Bowlby One standing in for Lateral, line-height 0.75–0.80) so the words become sculptural objects, not sentences. Every existing color appears as a filled sticker, a card surface, or a section band — never as a restrained accent and never as a new hex. Components are soft (20–40px on cards, pill-shaped on nav and buttons) and outlined in Void Black for a hand-cut feel. The result reads as a physical collage pinned to a pale wall.
 
 ## Tokens — Colors
 
+These are the only colors. No pastel rainbow is imported. Slush’s eleven-color set is collapsed onto the four hexes already in the system, and the roles below are the new jobs those hexes do.
+
 | Name | Value | Token | Role |
 |------|-------|-------|------|
-| Void Black | `#000000` | `--color-void-black` | Page canvas, body borders, all text in dark contexts — the default background every other element sits on |
-| Bone Cream | `#ebe4d8` | `--color-bone-cream` | Primary text color, button fills, surface highlights — warm off-white that reads as paper, not screen white |
-| Ash Taupe | `#c3bdb3` | `--color-ash-taupe` | Button box-shadow tint — the single warm-gray accent in the system |
-| Alarm Red | `#ff4034` | `--color-alarm-red` | Hazard icons, strikethrough editorial links, flame illustrations, concentric radar rings — the only chromatic signal in the system, reserved for things requiring attention |
+| Void Black | `#000000` | `--color-void-black` | Primary text, 1px card and control borders, filled CTA background, logo mark — the hand-cut sticker outline against paper |
+| Bone Cream | `#ebe4d8` | `--color-bone-cream` | Page canvas, card surfaces, outlined button fills, text and outlines on black bands. This is the paper. It is not screen white |
+| Ash Taupe | `#c3bdb3` | `--color-ash-taupe` | Secondary section band, neutral interlude, sticker and tag fills. A surface now — there is no button shadow for it to tint |
+| Alarm Red | `#ff4034` | `--color-alarm-red` | The ribbon and a sticker fill. Decorative brand surface only. Never a CTA fill, never a link color, never a background behind body text |
+
+### How the Slush roles map
+
+| Slush role | This system |
+|------------|-------------|
+| Carbon | Void Black |
+| Paper White | Bone Cream |
+| Sky Wash (hero ground) | Bone Cream — there is no blue wash to add |
+| Concrete Gray / Soft Mist | Ash Taupe |
+| Electric Blue (ribbon) | Alarm Red |
+| Sticker palette (six hues) | Void Black, Bone Cream, Ash Taupe, and Alarm Red, used together as fills |
 
 ## Tokens — Typography
 
-### Spektra — Display and heading face — extremely condensed, near-black weight even at 400, used for the campaign title and brand wordmark at poster sizes · `--font-spektra`
-- **Substitute:** Bebas Neue, Anton, League Gothic
-- **Weights:** 400
-- **Sizes:** 32px, 40px, 100px, 202px
-- **Line height:** 0.82–1.00
-- **Role:** Display and heading face — extremely condensed, near-black weight even at 400, used for the campaign title and brand wordmark at poster sizes
+### Lateral — Display headlines only · `--font-lateral`
 
-### Helvetica Neue LT — Body, subheadings, UI text — quiet humanist sans at 400 for body, 800 for emphasized subheads and footer marks · `--font-helvetica-neue-lt`
-- **Substitute:** Inter, Helvetica, Arial
-- **Weights:** 400, 800
-- **Sizes:** 14px, 16px, 28px, 30px
-- **Line height:** 1.27–1.50
-- **Role:** Body, subheadings, UI text — quiet humanist sans at 400 for body, 800 for emphasized subheads and footer marks
+The wordmark and short section banners sit at display size with crushed 0.75–0.80 line-height so the letters stack into sculptural blocks. The face behaves like a physical object that a ribbon can pass behind.
+
+- **Substitute:** Bowlby One (the inflated cut). Antonio if a line must be narrower. Druk is the licensed original and is not loaded
+- **Weights:** 800 in the source. Bowlby One ships a single heavy cut; set it at 400 and do not synthesize a bolder weight
+- **Sizes:** 70px, 110px, 160px, 200px, 281px, 640px — see Amendments for the clamp
+- **Line height:** 0.75–0.80. Never above 0.85
+- **Letter spacing:** normal
+- **Role:** Display headlines only. Never UI, never body, never the logo badge
+
+### Aeonik Pro — All UI, body, nav, buttons, subheads · `--font-aeonik-pro`
+
+Weight 500 for body and metadata (12–16px). Weight 700 for subheads, nav, and buttons. A 64px / 700 step for large supporting headlines that are still sentences, not sculptures.
+
+- **Substitute:** Inter. Satoshi or General Sans are acceptable alternates; Inter is what the site loads
+- **Weights:** 500, 700
+- **Sizes:** 12px, 13px, 14px, 15px, 16px, 24px, 30px, 64px
+- **Line height:** 1.00–1.56
+- **Letter spacing:** -0.01em on body, 0.032em on nav, buttons, and uppercase labels
+- **OpenType:** `"ss01" on, "tnum"` on the UI face
+- **Role:** Everything that is not a display headline
 
 ### Type Scale
 
-| Role | Size | Line Height | Letter Spacing | Token |
-|------|------|-------------|----------------|-------|
-| caption | 14px | 1.27 | — | `--text-caption` |
-| body | 16px | 1.27 | — | `--text-body` |
-| subheading | 28px | 1.5 | — | `--text-subheading` |
-| heading-sm | 30px | 1.5 | — | `--text-heading-sm` |
-| heading | 40px | 0.88 | — | `--text-heading` |
-| heading-lg | 100px | 0.88 | — | `--text-heading-lg` |
-| display | 202px | 0.82 | — | `--text-display` |
+| Role | Family | Weight | Size | Line Height | Letter Spacing | Token |
+|------|--------|--------|------|-------------|----------------|-------|
+| caption | Aeonik | 500 | 12px | 1.56 | -0.01em | `--text-caption` |
+| body | Aeonik | 500 | 15px | 1.39 | -0.01em | `--text-body` |
+| subheading | Aeonik | 500 | 24px | 1.2 | -0.01em | `--text-subheading` |
+| heading-sm | Aeonik | 700 | 30px | 1.1 | -0.01em | `--text-heading-sm` |
+| heading | Aeonik | 700 | 64px | 1 | -0.01em | `--text-heading` |
+| display | Lateral | 800 | 200px | 0.8 | 0 | `--text-display` |
+| display-lg | Lateral | 800 | 280px | 0.76 | 0 | `--text-display-lg` |
+
+The 640px source step is the measurement for a one-word mark on a wide canvas. It is not a token the layout uses. See Amendments.
 
 ## Tokens — Spacing & Shapes
 
-**Density:** spacious
+**Base unit:** 4px
+
+**Density:** comfortable
 
 ### Spacing Scale
 
 | Name | Value | Token |
 |------|-------|-------|
-| 7 | 7px | `--spacing-7` |
+| 4 | 4px | `--spacing-4` |
 | 8 | 8px | `--spacing-8` |
 | 12 | 12px | `--spacing-12` |
-| 14 | 14px | `--spacing-14` |
-| 15 | 15px | `--spacing-15` |
+| 16 | 16px | `--spacing-16` |
 | 20 | 20px | `--spacing-20` |
-| 25 | 25px | `--spacing-25` |
-| 29 | 29px | `--spacing-29` |
-| 30 | 30px | `--spacing-30` |
+| 24 | 24px | `--spacing-24` |
+| 28 | 28px | `--spacing-28` |
+| 32 | 32px | `--spacing-32` |
 | 40 | 40px | `--spacing-40` |
+| 44 | 44px | `--spacing-44` |
+| 48 | 48px | `--spacing-48` |
 | 60 | 60px | `--spacing-60` |
 | 80 | 80px | `--spacing-80` |
-| 100 | 100px | `--spacing-100` |
-| 168 | 168px | `--spacing-168` |
+| 128 | 128px | `--spacing-128` |
+| 180 | 180px | `--spacing-180` |
+| 224 | 224px | `--spacing-224` |
+
+The token number is the pixel value. `--spacing-24` is 24px, so `gap-24` is 24px.
 
 ### Border Radius
 
-| Element | Value |
-|---------|-------|
-| card | 2520px |
-| input | 10px |
-| button-lg | 120px |
-| button-md | 80px |
-| button-sm | 48px |
+| Element | Value | Token |
+|---------|-------|-------|
+| wallet-icon / sticker | 16–20px | `--radius-sticker` |
+| cards | 20px | `--radius-cards` |
+| body | 30px | `--radius-body` |
+| cards-elevated | 40px | `--radius-cards-elevated` |
+| nav, pills, buttons, tags | 1600px | `--radius-pills` |
 
 ### Layout
 
-- **Page max-width:** 680px
-- **Section gap:** 80px
-- **Card padding:** 30px
-- **Element gap:** 20px
+- **Page max-width:** 1440px
+- **Section gap:** bands stack flush; padding inside a band is 48–80px
+- **Card padding:** 24px
+- **Element gap:** 4–12px
 
 ## Components
 
-### Apocalypse Display Headline
-**Role:** Hero title block
+### Marquee Banner
+**Role:** Scrolling announcement strip
 
-Spektra 202px, line-height 0.82, Bone Cream (#ebe4d8), centered. Stacks across up to 3 lines with near-zero leading so the letters touch. The defining signature: massive condensed display on a black field.
+Full-bleed band at the top of the viewport, Void Black ground, Bone Cream Aeonik 700 uppercase at 12px with 0.032em letter-spacing. The phrase repeats. No padding inside the band. Persists above the nav.
 
-### Brand Wordmark
-**Role:** Small siteline above the display headline
+### Pill Nav Button
+**Role:** Top navigation links
 
-Spektra 32–40px, Bone Cream, centered, single line. Reads as the campaign attribution rather than a logo lockup.
+1600px radius, 1px solid Void Black border, Bone Cream fill, Aeonik 700 at 14px with 0.032em letter-spacing, about 12px horizontal padding. The current page uses the filled treatment. 4px gaps between pills.
 
-### Body Prose Block
-**Role:** Long-form campaign copy
+### Filled CTA Button
+**Role:** Primary action — resume
 
-Helvetica Neue 16px, line-height 1.27, Bone Cream, centered, max-width ~680px. Sentence case throughout, no paragraph indentation, generous 30px bottom margin between paragraphs.
+1600px radius, Void Black background, Bone Cream text, Aeonik 700 at 14px with 0.032em letter-spacing, 1px solid Void Black border. One highest-priority action. Alarm Red is never this fill.
 
-### Underlined Link
-**Role:** Inline reference link inside body copy
+### Outlined Ghost Button
+**Role:** Secondary action — contact, external links
 
-Bone Cream (#ebe4d8) text, 1px cream underline, no hover color shift. Standard editorial link.
+1600px radius, 1px solid Void Black border, Bone Cream background, Void Black text, same type as the filled CTA. Pairs beside the filled button.
 
-### Strikethrough Editorial Link
-**Role:** Satirical or corrected inline link
+### Logo Mark
+**Role:** Brand identifier in the nav
 
-Alarm Red (#ff4034) text, 1px red line-through applied as a typographic annotation rather than deletion. The signature 'correction' device — it's the only place red appears in body type.
+Circular badge, 1600px radius, 1px Void Black border, Bone Cream fill, a single “S” in Aeonik 700. Lateral is not used here — the display face does not appear at badge size. Fixed at the top left, beside the pills.
 
-### Hazard Icon Marker
-**Role:** Decorative attention glyph
+### Plus Menu Button
+**Role:** Overflow trigger below the `md` breakpoint
 
-16–24px Alarm Red square with a white hazard symbol (radiation, biohazard, fire, skull) inset. Scattered at fixed orbital radii around the concentric-circle radar. Sits on black with zero padding around the symbol.
+Same circular badge as the logo. Holds a “+” in Aeonik 700. Opens the nav pills. Hidden once the row fits.
 
-### Radar Concentric Field
-**Role:** Background decorative motif for hero
+### Resume Card
+**Role:** The download prompt (stands in for the source QR card)
 
-Four to six concentric rings in Alarm Red at decreasing opacity, alternating solid and 2px dashed strokes. Ring diameters scale from viewport-center outward. No interactive function — purely atmospheric.
+20px radius, Void Black ground, 1px Void Black border, split in half. The left half is a Bone Cream panel with a 1px black hairline; the right half reads “RESUME” in Aeonik 700, 14px, 0.032em, Bone Cream, centered. Sits off-center in a secondary band. There is no fake QR code.
 
-### Flame Footer Illustration
-**Role:** Section terminator graphic
+### Sticker
+**Role:** Playful accent around display type
 
-Flat Alarm Red flame silhouettes along the bottom edge of the page, 100–160px tall, bleeding off the viewport. Black background shows through the gaps between tongues. No gradient, no detail — pure silhouette.
+Rounded square, 20px radius, 1px Void Black outline, filled with one of the four colors. Glyphs are rocket, coin, wallet, and check — a few bold shapes, not illustration grids. Rotated a few degrees and placed off any grid, overlapping the margins around a headline. On a black band the outline flips to Bone Cream.
 
-### Pill Button (Large)
-**Role:** Primary call-to-action
+### Display Headline
+**Role:** Hero and section sculpture
 
-Bone Cream fill, black text, Helvetica Neue 16px weight 800, padding 20px 60px, border-radius 120px. Box-shadow 0 4px 0 #c3bdb3 — the only shadow in the system, hard-edged, no blur. Feels stamped, not floated.
+Lateral at the display step, line-height 0.75–0.80, Void Black on paper and Bone Cream on a black band. Always paired with a ribbon or a sticker cluster. A tagline in Aeonik sits under it.
 
-### Pill Button (Compact)
-**Role:** Secondary action
+### Tagline
+**Role:** Supporting line under display text
 
-Same fill and shadow as the large button, padding 7px 15px, border-radius 80px. Used for inline form submits or footer actions.
+Aeonik 500 at the subheading step (24px), matching the band’s text color, left-aligned, measure capped so it does not compete with the display line.
 
-### Text Input
-**Role:** Form field
+### Ribbon
+**Role:** Signature motif — inflatable tube
 
-1px Bone Cream border, 10px radius, Bone Cream text, black fill, padding ~20px horizontal. No focus ring — the border simply thickens or inverts on focus.
+A solid Alarm Red tube with a grainy surface, full-bleed, passing behind display type. Flat fill plus a noise texture. No gradient, no second red, no shadow. Static.
 
-### Blob Card
-**Role:** Fully rounded content container
+### Sticker Card
+**Role:** Role, stat, note, and project container
 
-Border-radius 2520px — effectively a fully rounded organic blob. Used sparingly as a highlight surface when the page needs a cream 'paper' resting on the black canvas.
+20px radius, or 40px when the card holds a screenshot. 1px Void Black border, 24px padding, Bone Cream fill, Void Black text. No shadow. The border is the edge. On a black band the card stays cream so it still reads as a sticker stuck to the sheet; an ink variant (black fill, cream text) is allowed when the card itself is the dark sticker.
 
-### Section Head
-**Role:** The opening of every section
+### Section Band
+**Role:** Full-bleed ground
 
-A hazard-flagged eyebrow carrying the section number and label, the title in Spektra at 100px, and an optional standfirst in 16px. One repeated shape is what turns a stack of paragraphs into a document — the reader learns the pattern once and then always knows where they are, and the number tells them how much is left.
-
-### Section Rule
-**Role:** Divider between sections
-
-A 1px dashed Alarm Red rule broken by a single 16px hazard mark, borrowing the radar's dash so the furniture stays one family. This — not the flame band — is what goes between sections.
-
-### Evidence Frame
-**Role:** Project screenshot, contained
-
-1px Bone Cream border, 10px radius, no shadow. The image sits desaturated at rest (`grayscale(1) contrast(1.05)`) and resolves to full colour on hover, gated behind `(hover: hover) and (pointer: fine)`. The desaturation is what lets real screenshots live in a two-colour system without smuggling in a third accent.
+One of three fills, in rotation: Bone Cream, Ash Taupe, Void Black. No border between bands and no shadow. Type on the black band is Bone Cream. Body copy never sits on Alarm Red.
 
 ### Email Dialog
-**Role:** Contact, in place of a mailto
+**Role:** Contact, in place of a bare mailto
 
-A Bone Paper panel at 48px radius on a flat `#000000` 85% scrim, holding the address in Spektra with a Copy button and a mail-app fallback. A bare `mailto:` is a leap of faith — it either launches a client the visitor does not use or does nothing at all, and either way the address never becomes visible.
+A Bone Cream panel, 40px radius, 1px Void Black border, on a flat Void Black scrim. The address is set in Aeonik, with a filled Copy button and an outlined mail-app fallback. Focus is trapped and returned to the trigger. Escape closes. The page behind stops scrolling.
 
-Modal rules: `transform-origin` stays centre (it is not anchored to its trigger), it scales from `0.96` and never from `0`, focus is trapped and returned to the trigger on close, Escape closes, and the page behind it stops scrolling.
+### Evidence Frame
+**Role:** Project screenshot, pinned
+
+The screenshot sits inside a 40px-radius sticker card with a 1px black border. Photography is otherwise out of the system; this is the one place it is allowed, and the outline is what makes it a sticker rather than a gallery.
 
 ## Do's and Don'ts
 
 ### Do
-- Use Spektra at 100–202px for any headline that needs to read as a campaign poster; let the line-height drop to 0.82 so characters collide
-- Keep all readable text in Bone Cream (#ebe4d8) on Void Black (#000000) — the 16.6:1 contrast is the system's foundation
-- Reserve Alarm Red (#ff4034) for annotation, hazard, and link layers — never as a background fill for body content
-- Default to centered single-column layouts with a ~680px max-width for prose; the page is editorial, not dashboard
-- Use border-radius 120px for primary buttons and 2520px for the rare container card — there are no 4–8px radii in this system
-- Pair every filled button with the hard 0 4px 0 #c3bdb3 offset shadow; no soft drop-shadows anywhere
-- Treat the radar/circle motif and flame illustrations as recurring page furniture — reuse the Alarm Red concentric ring set on any full-bleed dark section
+- Use the display face at the display step with line-height 0.75–0.80 for short headlines. The crushed leading is what makes the type sculptural.
+- Use all four colors as fills on a screen — black, cream, taupe, and red — rather than treating red as a thin accent.
+- Put a 1px solid Void Black border on nav, buttons, cards, and stickers. On a Void Black band, flip that outline to Bone Cream.
+- Round nav, buttons, and tags to 1600px and cards to 20–40px.
+- Pair every display headline with the red ribbon or a sticker cluster.
+- Set nav, buttons, and uppercase labels in Aeonik 700 at 0.032em.
+- Alternate section bands across Bone Cream, Ash Taupe, and Void Black so the scroll has a rhythm without dividers.
+- Keep filled actions on Void Black and secondary actions outlined. Red stays on the ribbon and the stickers.
 
 ### Don't
-- Don't introduce a second chromatic accent — red is the only signal color and dilution destroys the alarm-broadcast feel
-- Don't set Spektra below 32px; the face is unreadable at body sizes and breaks the system
-- Don't use neutral grays (#777, #aaa) for text or borders — go from black to Bone Cream directly
-- Don't apply border-radius under 10px to any surface; the system relies on extreme roundness or none at all
-- Don't add card shadows, hover lifts, or transitions longer than ~150ms — the design is print, not app
-- Don't center-align body paragraphs wider than 680px; longer line lengths destroy the poster rhythm
-- Don't use photography or gradients — the visual language is flat, two-color graphic editorial only
+- Don't add a fifth color. The sticker palette is the four hexes above.
+- Don't use a radius under 16px, or a radius under 1600px on buttons, nav, and tags.
+- Don't set the display face below the clamped display step, and don't set its line-height above 0.85.
+- Don't use Alarm Red as a CTA fill, a link, or a background for body text.
+- Don't add box-shadows. Elevation is a color band and a black outline.
+- Don't use Ash Taupe as a disabled or “success” gray. It is a paper band and a sticker fill.
+- Don't constrain the page under 1280px. The frame is 1440px.
+- Don't use gradients. The ribbon’s grain is noise on a flat fill.
+- Don't animate the ribbon, the stickers, or the type. Motion is the marquee and a color flip on button hover.
 
 ## Motion
 
-The system is print, not app — but a page with no motion at all reads as a document rather than a site. The budget is spent deliberately.
+The page is a printed collage. Motion is the marquee and hover on buttons.
 
-**Tokens.** `--ease-out: cubic-bezier(0.23, 1, 0.32, 1)` for everything entering, exiting or responding. Never the built-in curves; they are too weak to read as intentional. `--dur-fast: 100ms` for press, `--dur-ui: 150ms` for state changes.
-
-**Budgets.**
-
-| Moment | Duration |
-|---|---|
-| Press feedback | 100ms |
-| Hover / state change | 150ms |
-| Route transition | 150ms |
-| Modal enter | 200ms |
-| Scroll reveal | 420ms, 60–80ms stagger |
-| Hero intro cascade | ~1.2s, once per session |
-| Ambient flame drift | 19s / 27s, linear, infinite |
+**Tokens.** `--ease-out: cubic-bezier(0.23, 1, 0.32, 1)`. `--dur-ui: 150ms` for hover color. No press travel — there is no shadow to collapse into.
 
 **Rules.**
-- Only `transform` and `opacity` animate. They skip layout and paint and composite on the GPU.
-- Never `scale(0)` — nothing in the real world appears from nothing. Enter from `0.96` and an opacity.
-- Every pressable surface confirms the press. The pill drives down 4px while its shadow collapses by 4px, so the face lands exactly where the shadow was.
-- Transitions, not keyframes, for anything a user can trigger twice in a second — transitions retarget from the current value, keyframes restart from zero.
-- Predetermined motion is CSS, not JS. Route transitions and the hero cascade fire while the browser is painting a new route, which is exactly where a `requestAnimationFrame` tween drops frames.
-- Hover motion is gated behind `@media (hover: hover) and (pointer: fine)`, or a tap leaves the state stuck on a phone.
-- `prefers-reduced-motion` keeps colour, opacity and shadow transitions and drops movement. Gentler, not zero.
-- The hero intro plays **once per session**. It is authored for first paint; replaying it on every route change charges a 1.2s entrance at the frequency of core navigation.
-- Scroll reveals hide only behind `[data-js]`. Content must render visible without JavaScript, never blank space waiting for an observer that will not run.
+- The marquee translates horizontally, linear, and loops. It is the only infinite animation.
+- Button hover flips fill and text (cream ↔ black). It is gated behind `(hover: hover) and (pointer: fine)`.
+- The email dialog fades opacity over 150ms. It does not scale.
+- `prefers-reduced-motion` stops the marquee and keeps the color change.
+- Nothing scroll-reveals. Copy is on the paper when the reader arrives.
 
-## Structure & Hierarchy
+## Structure
 
-**The index leads with the name.** On the home page the name takes the display slot at 202px and out-sizes everything else on the site — that is the page whose subject is the person. Section pages put their own title in the display slot and carry the name in the caption-size eyebrow above it, because there the subject is the work. Whichever string sits in the display slot is what the page is about.
+**The index leads with the name.** Home puts the name in the display slot. Section pages put their own short title there (`Work`, `Lab`, `Notes`) and carry the name in the nav logo.
 
-**Every section follows the same shape:** numbered hazard eyebrow → title → standfirst → content. Sections are separated by a Section Rule and 80px of gap.
+**Bands, not a single column.** Each route is a stack of full-bleed bands. Content sits in a 1440px frame, left-aligned. Display type is a short word; the tagline and the cards carry the sentences.
 
-**Alignment splits by kind.** Lead paragraphs and standfirsts centre — that is the poster voice. Enumerated detail (roles, bullet lists, project entries) left-aligns inside the same 680px column: a centred list has no common left edge, so the eye has to re-find the start of every line.
-
-**Numbers go in a grid, not a column.** Four stacked centred stats are a list; two-up with dashed rules between them is evidence, because the eye gets a common edge and pairs read against each other.
+**The chrome persists.** Marquee, then a bar: logo left, pills center, filled resume action right. Below `md` the pills move behind the plus button.
 
 ## Amendments
 
-Reasoned departures from the source spec, kept here so they are decisions rather than drift.
+Reasoned departures from the Slush source, kept here so they are decisions rather than drift.
 
-- **Display sizes ramp.** The 202px / 100px / 40px values are the desktop end of a `clamp()`, not fixed. A 202px headline is four times the width of a phone. The floor never drops below 32px, so the "never set Spektra below 32px" rule holds.
-- **Spacing scales with the viewport** where a fixed value would eat a small screen alive.
-- **Photography is permitted as evidence.** The source spec rules out photography entirely; a portfolio with no visual record of the work is worse than one that bends the rule. Project screenshots are allowed inside an Evidence Frame and desaturated at rest, which keeps the two-colour system intact.
-- **The flame band flows, and only terminates the page.** As a mid-page divider a 160px wall of red stops the eye dead and makes the sections it splits feel unrelated. It belongs at the bottom edge, and it drifts — two solid silhouettes moving in opposite directions at different speeds, whose union reads as one living edge. A static sawtooth is a border; a moving one is a horizon.
-- **Outline pills are filled with the page colour, not transparent.** Identical on the black canvas, but the nav is fixed, and a transparent fill lets display type scroll straight through it.
+- **The palette is the existing four colors.** Slush’s sky, concrete, and six sticker hues are not added. Bone Cream is the paper and the hero ground, Ash Taupe is the concrete band, Alarm Red is the ribbon. Stickers are filled from those four and no others.
+- **Ash Taupe is a surface.** It used to exist only as a 4px button shadow. The scheme has no shadows, so the hex is the secondary band and a sticker fill.
+- **Alarm Red is a surface, and only a decorative one.** It used to be a signal reserved for annotations. It now fills the ribbon and stickers. It still does not fill a button, a link, or a paragraph.
+- **Display sizes ramp.** The 200px / 280px values are the desktop end of a `clamp()`. A 640px word is wider than the viewport. The floor stays large enough to read as display, and long titles use the Aeonik heading steps instead of shrinking the display face into a sentence.
+- **Buttons are pills.** One Slush note gives the filled CTA a 40px radius; the do/don’t rules require 1600px on every button. The pill rule wins.
+- **Outlines flip on black bands.** A black hairline on Void Black disappears. Borders, focus rings, and sticker strokes use Bone Cream there.
+- **Photography is allowed inside an evidence card.** A portfolio with no record of the work is worse than a collage that pins two screenshots. They live in the 40px sticker card and nowhere else.
+- **The resume card replaces the QR card.** There is no app to download.
+- **Touch targets grow on coarse pointers.** The documented 10–15px padding returns under `(pointer: fine)`. A finger still gets at least 44px.
+- **Bowlby One is not an 800-weight file.** Using `font-weight: 800` on it synthesizes a fake bold. The loaded cut is already the heavy one.
 
 ## Surfaces
 
 | Level | Name | Value | Purpose |
 |-------|------|-------|---------|
-| 1 | Blackout Canvas | `#000000` | Full-bleed page background — every section sits directly on black with no separator |
-| 2 | Bone Paper | `#ebe4d8` | Highlight/button surface for inverted controls |
-
-## Elevation
-
-- **Pill Button:** `0 4px 0 #c3bdb3`
+| 1 | Bone paper | `#ebe4d8` | Hero and default band — the wall the collage is pinned to |
+| 2 | Ash band | `#c3bdb3` | Secondary interlude |
+| 3 | Black sheet | `#000000` | Inverted band — cream type, cream outlines |
+| 4 | Sticker card | `#ebe4d8` | Card fill on any band, outlined in black |
 
 ## Imagery
 
-Pure flat graphic editorial — no photography, no 3D, no gradients. The visual vocabulary is two-tone: Alarm Red shapes and glyphs on a black field. Hazard-icon squares (radiation, biohazard, fire, skull) appear as scattered attention markers; flame silhouettes bleed along section edges as terminator graphics; concentric red rings form a radar/sensor overlay behind the hero. Icons are uniformly 16–24px white symbol inside a solid red square. Imagery is decorative-atmospheric rather than explanatory — it signals 'emergency broadcast' rather than illustrating the product.
+One ribbon: a grainy Alarm Red tube behind display type. Four sticker glyphs (rocket, coin, wallet, check) with a 1px outline, each filled from the four-color set, rotated and unaligned. No illustration grids, no gradients, no hazard icons, no flames, no radar. Screenshots appear only inside evidence cards.
 
 ## Layout
 
-Single centered column, ~680px max-width, with full-bleed decorative layers behind the content. The hero is a viewport-height black field with the radar concentric ring pattern radiating from center and the massive Spektra headline stacked over it. Body sections drop into a tighter 680px centered prose column on the same black background — no alternating light/dark bands, no cards, no sidebars. Navigation is minimal (likely a small footer mark) and never competes with the content. Decorative elements (hazard icons, flame graphics) sit at the page margins or bleed off the bottom edge, framing the centered text like editorial layout rather than grid. The rhythm is: massive poster → tight prose → flame terminator → next section. Spacing is generous — 80px between major sections, 30px between paragraphs.
+Full-bleed scroll. No sidebar. The marquee and the nav persist at the top. Each section is a color band (cream → taupe → black, then repeat) with a short display word, a tagline, and cards. Composition is loose: stickers sit in the margins, the ribbon crosses behind the type, the resume card sits off-center. The frame is 1440px. Prose does not center into a narrow poster column.
 
 ## Agent Prompt Guide
 
 **Quick Color Reference**
-- Background: #000000 (Void Black)
-- Text: #ebe4d8 (Bone Cream)
-- Border / button shadow: #c3bdb3 (Ash Taupe)
-- Accent (icons, annotation links, flames): #ff4034 (Alarm Red)
-- Surface highlight (inverted buttons, blob cards): #ebe4d8
-- primary action: #000000 (filled action)
+- Text on paper: `#000000`
+- Text on black: `#ebe4d8`
+- Background bands: `#ebe4d8` / `#c3bdb3` / `#000000`
+- Border: `#000000` (1px), or `#ebe4d8` on a black band
+- Ribbon and sticker red: `#ff4034` — decorative only
+- Filled action: `#000000` background, `#ebe4d8` text
+- Outlined action: `#ebe4d8` background, `#000000` text, `#000000` border
 
 **Example Component Prompts**
-1. *Hero section*: full-bleed #000000 canvas with four concentric #ff4034 rings (alternating solid and 2px dashed) centered behind the content. Headline 'CLIMATE CATASTROPHE PACK' in Spektra 202px weight 400, line-height 0.82, #ebe4d8, centered, up to 3 lines. Siteline 'Cards Against Humanity' in Spektra 40px, #ebe4d8, centered above. Scatter six 20px #ff4034 squares with white hazard symbols (radiation, fire, biohazard) at fixed orbital radii.
-2. *Body prose section*: #000000 background, centered column max-width 680px. Body text in Helvetica Neue 16px weight 400, line-height 1.27, #ebe4d8, sentence case. Insert one inline editorial link styled in #ff4034 with a 1px red line-through, and one standard #ff4034 underlined reference link. 30px between paragraphs, 80px before the next section.
-3. Create a Primary Action Button: #000000 background, #ebe4d8 text, 9999px radius, compact pill padding. Use this filled treatment for the main CTA.
-4. *Flame footer illustration*: row of flat #ff4034 flame silhouettes, 100–160px tall, bleeding off the bottom viewport edge, with the #000000 canvas showing through the gaps between tongues. No gradient, no detail shading.
+1. Primary action: Void Black fill, Bone Cream text, 1600px radius, Aeonik 700 at 14px, 0.032em tracking, 1px black border. Never Alarm Red.
+2. Hero band: Bone Cream, full bleed. Display headline in Bowlby, line-height 0.80, Void Black, left aligned. An Alarm Red grainy tube behind the type. Tagline in Inter 500 at 24px. Two pills under it: filled “Resume”, outlined “Get in touch”. Rocket, coin, wallet, and check stickers in the margins, 20px radius, 1px black outline, slight rotation.
+3. Resume card: 20px radius, Void Black ground, split half cream / half black, “RESUME” in Inter 700, 14px, 0.032em, Bone Cream.
+4. Marquee: Void Black band, Inter 700, 12px, 0.032em, Bone Cream, uppercase, scrolling, no inner padding.
+5. Secondary band: Ash Taupe, full bleed. A short display word on the left, sticker cluster or ribbon nearby, cards at 20px with 1px black borders and 24px padding.
 
 ## Similar Brands
 
-- **VICE** — Same editorial dark canvas with a single high-saturation accent color and oversized condensed display type for section titles
-- **Patagonia (activism pages)** — Print-poster aesthetic, hard-edged shadows, and centered editorial copy rather than SaaS card grids
-- **The Outline** — Bold condensed display headlines over a flat dark background with minimal UI chrome and prose-first layout
-- **Adbusters** — Civil-defense alarm vocabulary — flat red-on-black, hazard iconography, radar/concentric ring motifs, no soft shadows
+- **Rainbow.me** — sticker-on-paper, many fills, pill buttons
+- **Phantom** — oversized display with a decorative form behind the type
+- **Backpack** — vivid sticker fills and soft cards on a light canvas
+- **Magic Eden** — bold display, tight leading, full-bleed color bands
+
+The resemblance is structural. The color set stays Void Black, Bone Cream, Ash Taupe, and Alarm Red.
 
 ## Quick Start
 
@@ -284,75 +301,80 @@ Single centered column, ~680px max-width, with full-bleed decorative layers behi
 
 ```css
 :root {
-  /* Colors */
+  /* Colors — the existing four, no others */
   --color-void-black: #000000;
   --color-bone-cream: #ebe4d8;
   --color-ash-taupe: #c3bdb3;
   --color-alarm-red: #ff4034;
 
   /* Typography — Font Families */
-  --font-spektra: 'Spektra', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-helvetica-neue-lt: 'Helvetica Neue LT', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-lateral: "Bowlby One", "Antonio", ui-sans-serif, system-ui, sans-serif;
+  --font-aeonik-pro: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   /* Typography — Scale */
-  --text-caption: 14px;
-  --leading-caption: 1.27;
-  --text-body: 16px;
-  --leading-body: 1.27;
-  --text-subheading: 28px;
-  --leading-subheading: 1.5;
+  --text-caption: 12px;
+  --leading-caption: 1.56;
+  --tracking-caption: -0.01em;
+  --text-body: 15px;
+  --leading-body: 1.39;
+  --tracking-body: -0.01em;
+  --text-subheading: 24px;
+  --leading-subheading: 1.2;
+  --tracking-subheading: -0.01em;
   --text-heading-sm: 30px;
-  --leading-heading-sm: 1.5;
-  --text-heading: 40px;
-  --leading-heading: 0.88;
-  --text-heading-lg: 100px;
-  --leading-heading-lg: 0.88;
-  --text-display: 202px;
-  --leading-display: 0.82;
+  --leading-heading-sm: 1.1;
+  --tracking-heading-sm: -0.01em;
+  --text-heading: 64px;
+  --leading-heading: 1;
+  --tracking-heading: -0.01em;
+  --text-display: 200px;
+  --leading-display: 0.8;
+  --tracking-display: 0px;
+  --text-display-lg: 280px;
+  --leading-display-lg: 0.76;
+  --tracking-display-lg: 0px;
 
   /* Typography — Weights */
-  --font-weight-regular: 400;
-  --font-weight-extrabold: 800;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
 
   /* Spacing */
-  --spacing-7: 7px;
+  --spacing-unit: 4px;
+  --spacing-4: 4px;
   --spacing-8: 8px;
   --spacing-12: 12px;
-  --spacing-14: 14px;
-  --spacing-15: 15px;
+  --spacing-16: 16px;
   --spacing-20: 20px;
-  --spacing-25: 25px;
-  --spacing-29: 29px;
-  --spacing-30: 30px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
   --spacing-40: 40px;
+  --spacing-44: 44px;
+  --spacing-48: 48px;
   --spacing-60: 60px;
   --spacing-80: 80px;
-  --spacing-100: 100px;
-  --spacing-168: 168px;
+  --spacing-128: 128px;
+  --spacing-180: 180px;
+  --spacing-224: 224px;
 
   /* Layout */
-  --page-max-width: 680px;
-  --section-gap: 80px;
-  --card-padding: 30px;
-  --element-gap: 20px;
+  --page-max-width: 1440px;
+  --section-gap: 48px;
+  --card-padding: 24px;
+  --element-gap: 12px;
 
   /* Border Radius */
-  --radius-lg: 10px;
-  --radius-full: 48px;
-  --radius-full-2: 80px;
-  --radius-full-3: 120px;
-  --radius-full-4: 2520px;
-
-  /* Named Radii */
-  --radius-card: 2520px;
-  --radius-input: 10px;
-  --radius-button-lg: 120px;
-  --radius-button-md: 80px;
-  --radius-button-sm: 48px;
+  --radius-sticker: 20px;
+  --radius-cards: 20px;
+  --radius-body: 30px;
+  --radius-cards-elevated: 40px;
+  --radius-pills: 1600px;
 
   /* Surfaces */
-  --surface-blackout-canvas: #000000;
   --surface-bone-paper: #ebe4d8;
+  --surface-ash-band: #c3bdb3;
+  --surface-black-sheet: #000000;
+  --surface-sticker-card: #ebe4d8;
 }
 ```
 
@@ -360,53 +382,57 @@ Single centered column, ~680px max-width, with full-bleed decorative layers behi
 
 ```css
 @theme {
-  /* Colors */
   --color-void-black: #000000;
   --color-bone-cream: #ebe4d8;
   --color-ash-taupe: #c3bdb3;
   --color-alarm-red: #ff4034;
 
-  /* Typography */
-  --font-spektra: 'Spektra', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-helvetica-neue-lt: 'Helvetica Neue LT', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-lateral: "Bowlby One", "Antonio", ui-sans-serif, system-ui, sans-serif;
+  --font-aeonik-pro: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  /* Typography — Scale */
-  --text-caption: 14px;
-  --leading-caption: 1.27;
-  --text-body: 16px;
-  --leading-body: 1.27;
-  --text-subheading: 28px;
-  --leading-subheading: 1.5;
+  --text-caption: 12px;
+  --leading-caption: 1.56;
+  --tracking-caption: -0.01em;
+  --text-body: 15px;
+  --leading-body: 1.39;
+  --tracking-body: -0.01em;
+  --text-subheading: 24px;
+  --leading-subheading: 1.2;
+  --tracking-subheading: -0.01em;
   --text-heading-sm: 30px;
-  --leading-heading-sm: 1.5;
-  --text-heading: 40px;
-  --leading-heading: 0.88;
-  --text-heading-lg: 100px;
-  --leading-heading-lg: 0.88;
-  --text-display: 202px;
-  --leading-display: 0.82;
+  --leading-heading-sm: 1.1;
+  --tracking-heading-sm: -0.01em;
+  --text-heading: 64px;
+  --leading-heading: 1;
+  --tracking-heading: -0.01em;
+  --text-display: 200px;
+  --leading-display: 0.8;
+  --tracking-display: 0px;
+  --text-display-lg: 280px;
+  --leading-display-lg: 0.76;
+  --tracking-display-lg: 0px;
 
-  /* Spacing */
-  --spacing-7: 7px;
+  --spacing-4: 4px;
   --spacing-8: 8px;
   --spacing-12: 12px;
-  --spacing-14: 14px;
-  --spacing-15: 15px;
+  --spacing-16: 16px;
   --spacing-20: 20px;
-  --spacing-25: 25px;
-  --spacing-29: 29px;
-  --spacing-30: 30px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
   --spacing-40: 40px;
+  --spacing-44: 44px;
+  --spacing-48: 48px;
   --spacing-60: 60px;
   --spacing-80: 80px;
-  --spacing-100: 100px;
-  --spacing-168: 168px;
+  --spacing-128: 128px;
+  --spacing-180: 180px;
+  --spacing-224: 224px;
 
-  /* Border Radius */
-  --radius-lg: 10px;
-  --radius-full: 48px;
-  --radius-full-2: 80px;
-  --radius-full-3: 120px;
-  --radius-full-4: 2520px;
+  --radius-sticker: 20px;
+  --radius-cards: 20px;
+  --radius-body: 30px;
+  --radius-cards-elevated: 40px;
+  --radius-pills: 1600px;
 }
 ```

@@ -4,394 +4,300 @@
 @custom-variant pointer-fine (@media (pointer: fine));
 
 /* ---------------------------------------------------------------------------
-   Climate Catastrophe — emergency broadcast on a pitch-black field.
-   Tokens transcribed from DESIGN.md. Cream is the ink, red is the alarm, and
-   nothing else gets a colour. No gradients, no soft shadows, no elevation
-   beyond the one hard offset under a pill button.
+   Sticker sheet — bone-cream paper, a red ribbon, black hand-cut outlines.
+   Tokens transcribed from DESIGN.md. Four colors, no others. No gradients,
+   no shadows. Red is a ribbon and a sticker, never a button.
 --------------------------------------------------------------------------- */
 
 @theme {
-  /* ---- colors ---- */
+  /* ---- colors: the existing four ---- */
   --color-void-black: #000000;
   --color-bone-cream: #ebe4d8;
   --color-ash-taupe: #c3bdb3;
   --color-alarm-red: #ff4034;
 
-  /* ---- font families ---- see the :root block below for the stacks ---- */
-  --font-spektra: var(--stack-display);
-  --font-helvetica: var(--stack-body);
+  /* ---- font families: stacks live in :root so hand-written classes can
+        reach them. Tailwind emits these only because utilities reference them. ---- */
+  --font-lateral: var(--stack-display);
+  --font-aeonik-pro: var(--stack-body);
 
   /* ---- type scale ----
-     The display sizes ceiling at the documented 202px / 100px / 40px but ramp
-     down with the viewport. Held rigid, a 202px headline is four times the
-     width of a phone. The floor never drops under 32px — below that the
-     condensed face stops being readable, which the spec forbids outright. */
-  --text-caption: 14px;
-  --text-caption--line-height: 1.27;
-  --text-body: 16px;
-  --text-body--line-height: 1.27;
-  --text-subheading: 28px;
-  --text-subheading--line-height: 1.5;
+     Display ceilings are the desktop end of a clamp. Held rigid, a 200px
+     Bowlby word is wider than a phone, and the 640px source step is wider
+     than the viewport. Line-height stays inside 0.75–0.80. */
+  --text-caption: 12px;
+  --text-caption--line-height: 1.56;
+  --text-body: 15px;
+  --text-body--line-height: 1.39;
+  --text-subheading: 24px;
+  --text-subheading--line-height: 1.2;
   --text-heading-sm: 30px;
-  --text-heading-sm--line-height: 1.5;
-  --text-heading: clamp(32px, 6vw, 40px);
-  --text-heading--line-height: 0.88;
-  --text-heading-lg: clamp(52px, 12vw, 100px);
-  --text-heading-lg--line-height: 0.88;
-  --text-display: clamp(64px, 21vw, 202px);
-  --text-display--line-height: 0.82;
+  --text-heading-sm--line-height: 1.1;
+  --text-heading: clamp(36px, 5vw, 64px);
+  --text-heading--line-height: 1;
+  --text-display: clamp(56px, 14vw, 200px);
+  --text-display--line-height: 0.8;
+  --text-display-lg: clamp(72px, 18vw, 280px);
+  --text-display-lg--line-height: 0.76;
 
   /* ---- spacing: the token number is the pixel value ---- */
-  --spacing-7: 7px;
+  --spacing-4: 4px;
   --spacing-8: 8px;
   --spacing-12: 12px;
-  --spacing-14: 14px;
-  --spacing-15: 15px;
+  --spacing-16: 16px;
   --spacing-20: 20px;
-  --spacing-25: 25px;
-  --spacing-29: 29px;
-  --spacing-30: 30px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
   --spacing-40: 40px;
+  --spacing-44: 44px;
+  --spacing-48: 48px;
   --spacing-60: 60px;
   --spacing-80: 80px;
-  --spacing-100: 100px;
-  --spacing-168: 168px;
+  --spacing-128: 128px;
+  --spacing-180: 180px;
+  --spacing-224: 224px;
 
-  /* ---- radius: extreme roundness or none. There is no 4–8px in here. ---- */
-  --radius-input: 10px;
-  --radius-button-sm: 48px;
-  --radius-button-md: 80px;
-  --radius-button-lg: 120px;
-  --radius-card: 2520px;
+  /* ---- radius: pills, or 20–40. Nothing sharper than 16. ---- */
+  --radius-sticker: 20px;
+  --radius-cards: 20px;
+  --radius-body: 30px;
+  --radius-cards-elevated: 40px;
+  --radius-pills: 1600px;
 
-  /* ---- motion ----
-     Print, not app. Nothing in the UI runs past 150ms, and the curve is a
-     strong ease-out so movement starts on the frame the user asked for it. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --dur-fast: 100ms;
   --dur-ui: 150ms;
 }
 
-/* The font stacks live outside @theme on purpose. Tailwind only emits a theme
-   variable when some utility references it, and the hand-written component
-   classes below reach for these through plain var() — which the scanner can't
-   see, so the tokens would be pruned and every face would fall back.
-   A plain :root declaration is always emitted.
+/* Font stacks stay outside @theme. A variable declared only in @theme is
+   emitted when a utility references it; these classes call var() directly,
+   which the scanner cannot see, so the stacks would be pruned.
 
-   Spektra is a licensed face; Bebas Neue is the documented substitute
-   (extremely condensed, single weight, built for poster scale).
-   Helvetica Neue LT → Inter. */
+   Lateral → Bowlby One (one heavy cut; do not faux-bold it).
+   Aeonik Pro → Inter. */
 :root {
-  --stack-display: var(--font-bebas), "Anton", "League Gothic", Impact,
+  --stack-display: var(--font-bowlby), "Bowlby One", "Antonio", Impact,
     sans-serif;
-  --stack-body: var(--font-inter), "Helvetica Neue", Helvetica, Arial,
+  --stack-body: var(--font-inter), "Inter", "Helvetica Neue", Helvetica, Arial,
     sans-serif;
 
-  /* ---- layout ---- */
-  --page-max-width: 680px;
-  --section-gap: 80px;
-  --card-padding: 30px;
-  --element-gap: 20px;
+  --page-max-width: 1440px;
+  --section-gap: 48px;
+  --card-padding: 24px;
+  --element-gap: 12px;
+  --chrome-offset: 100px;
 }
 
 @layer base {
   html {
-    background-color: var(--color-void-black);
-    color-scheme: dark;
+    background-color: var(--color-bone-cream);
+    color-scheme: light;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background-color: var(--color-void-black);
-    color: var(--color-bone-cream);
+    background-color: var(--color-bone-cream);
+    color: var(--color-void-black);
     font-family: var(--stack-body);
-    font-size: 16px;
-    line-height: 1.27;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.39;
+    letter-spacing: -0.01em;
+    font-feature-settings: "ss01" on, "tnum";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    padding-top: var(--chrome-offset);
   }
 
   ::selection {
-    background-color: var(--color-alarm-red);
+    background-color: var(--color-void-black);
     color: var(--color-bone-cream);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-alarm-red);
+    outline: 2px solid var(--color-void-black);
     outline-offset: 3px;
+  }
+
+  .band-black :focus-visible {
+    outline-color: var(--color-bone-cream);
   }
 
   ::-webkit-scrollbar {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-void-black);
+    background: var(--color-bone-cream);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-bone-cream);
+    background: var(--color-void-black);
   }
 }
 
 @layer components {
-  /* The poster voice. Condensed, uppercase, and only ever large — the spec
-     forbids this face below 32px. */
+  /* Sculptural type. Bowlby's only cut already reads as the heavy weight —
+     forcing 800 synthesizes a fake bold. Never used below the display step. */
   .display-type {
     font-family: var(--stack-display);
     font-weight: 400;
+    font-synthesis: none;
     text-transform: uppercase;
-    letter-spacing: 0.01em;
+    letter-spacing: 0;
+    font-feature-settings: normal;
   }
 
-  /* The centred editorial column. Everything readable lives inside this. */
-  .prose-column {
+  /* Uppercase UI labels: nav-adjacent eyebrows, marquee, the resume card. */
+  .eyebrow {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.032em;
+    text-transform: uppercase;
+  }
+
+  .page-frame {
     width: 100%;
     max-width: var(--page-max-width);
     margin-inline: auto;
-    text-align: center;
+    padding-inline: 16px;
   }
 
-  .prose-column > p + p {
-    margin-top: 30px;
+  @media (min-width: 768px) {
+    .page-frame {
+      padding-inline: 24px;
+    }
   }
 
-  /* Standard editorial link: cream, 1px cream underline, no colour shift.
-     Press feedback is opacity rather than the usual scale — these sit inline
-     inside prose and wrap across lines, where a transform does not apply at
-     all and forcing inline-block would break the wrap. */
   .link-underline {
-    color: var(--color-bone-cream);
+    color: inherit;
     text-decoration: underline;
     text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-    transition: opacity var(--dur-fast) var(--ease-out);
+    text-underline-offset: 3px;
   }
 
-  .link-underline:active {
-    opacity: 0.6;
-  }
-
-  /* The signature correction device — the one place red enters body type. */
+  /* A correction mark in the copy. Current color, so it works on cream and
+     on the black band. Red stays on the ribbon. */
   .link-strike {
-    color: var(--color-alarm-red);
     text-decoration: line-through;
     text-decoration-thickness: 1px;
   }
 
-  /* Filled pill. The 0 4px 0 offset is the only shadow in the entire system:
-     hard-edged, no blur, so the button reads as stamped rather than floated. */
+  /* Hand-cut pill. No shadow — the 1px border is the edge. */
   .pill {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    border-radius: var(--radius-button-lg);
+    min-height: 44px;
+    border-radius: var(--radius-pills);
+    border: 1px solid var(--color-void-black);
+    background-color: var(--color-void-black);
+    color: var(--color-bone-cream);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0.032em;
+    padding: 12px 16px;
+    transition:
+      background-color var(--dur-ui) var(--ease-out),
+      color var(--dur-ui) var(--ease-out);
+  }
+
+  .pill-outline {
     background-color: var(--color-bone-cream);
     color: var(--color-void-black);
-    font-weight: 800;
-    font-size: 16px;
-    line-height: 1.27;
-    padding: 20px 60px;
-    box-shadow: 0 4px 0 var(--color-ash-taupe);
-    transition:
-      transform var(--dur-fast) var(--ease-out),
-      box-shadow var(--dur-fast) var(--ease-out),
-      background-color var(--dur-fast) var(--ease-out),
-      color var(--dur-fast) var(--ease-out);
   }
 
-  /* Pressing drives the button down onto its own shadow. The travel and the
-     shadow collapse by the same 4px, so the face lands exactly where the
-     shadow was — it reads as a physical stamp, not a scale tween. */
-  .pill:active {
-    transform: translateY(4px);
-    box-shadow: 0 0 0 var(--color-ash-taupe);
-  }
-
-  .pill-compact {
-    padding: 7px 15px;
-    border-radius: var(--radius-button-md);
-  }
-
-  /* Filled with the page colour rather than left transparent. Identical on the
-     black canvas, but the nav is fixed — with a transparent fill, display type
-     scrolling underneath reads straight through the pills and the bar starts
-     competing with the content it is supposed to stay out of the way of. */
-  .pill-outline {
-    background-color: var(--color-void-black);
-    color: var(--color-bone-cream);
-    box-shadow: inset 0 0 0 1px var(--color-bone-cream);
-  }
-
-  .pill-outline:active {
-    transform: translateY(2px);
-    box-shadow: inset 0 0 0 1px var(--color-bone-cream);
-  }
-
-  /* The only hover state in the system, and it is a straight figure-ground
-     flip rather than a tint — there is no third colour to fade toward.
-     Gated so a tap on a phone doesn't leave a pill stuck filled. */
-  @media (hover: hover) and (pointer: fine) {
-    .pill-outline:hover {
-      background-color: var(--color-bone-cream);
-      color: var(--color-void-black);
-    }
-  }
-
-  /* Pills sitting on the Bone Paper surface invert: black fill, cream text.
-     The ash-taupe offset still reads here — that tint exists precisely for a
-     shadow cast onto cream. */
-  .pill-ink {
-    background-color: var(--color-void-black);
-    color: var(--color-bone-cream);
-  }
-
-  .pill-ink-outline {
-    background-color: transparent;
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-pills);
+    border: 1px solid var(--color-void-black);
+    background-color: var(--color-bone-cream);
     color: var(--color-void-black);
-    box-shadow: inset 0 0 0 1px var(--color-void-black);
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.032em;
+    padding: 8px 12px;
   }
 
-  .pill-ink-outline:active {
-    transform: translateY(2px);
-    box-shadow: inset 0 0 0 1px var(--color-void-black);
+  .logo-mark {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-pills);
+    border: 1px solid var(--color-void-black);
+    background-color: var(--color-bone-cream);
+    color: var(--color-void-black);
+    font-family: var(--stack-body);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: 0.032em;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    .pill-ink-outline:hover {
-      background-color: var(--color-void-black);
-      color: var(--color-bone-cream);
-    }
+  .sticker-card {
+    border: 1px solid var(--color-void-black);
+    border-radius: var(--radius-cards);
+    background-color: var(--color-bone-cream);
+    color: var(--color-void-black);
+    padding: var(--card-padding);
   }
 
-  /* Scroll reveal. Transition rather than keyframes so a fast scroll retargets
-     instead of restarting, and only opacity/transform so it composites.
-
-     The hidden state is gated behind [data-js], stamped on <html> before first
-     paint. Unconditionally hiding here would mean that any document without
-     JavaScript renders as a page of blank space waiting for an observer that is
-     never going to run — the content has to be visible by default and hidden
-     only once something is guaranteed to reveal it again. */
-  .in-view {
-    transition:
-      opacity 420ms var(--ease-out) var(--delay, 0ms),
-      transform 420ms var(--ease-out) var(--delay, 0ms);
+  .sticker-card-elevated {
+    border-radius: var(--radius-cards-elevated);
   }
 
-  [data-js] .in-view:not(.is-shown) {
-    opacity: 0;
-    transform: translate3d(0, 12px, 0);
+  .sticker-card-ink {
+    background-color: var(--color-void-black);
+    color: var(--color-bone-cream);
   }
 
-  /* Evidence frame: a project screenshot, contained. Desaturated at rest so a
-     stray off-palette shot can't introduce a second accent colour, resolving
-     to full colour on the one you're actually looking at. 10px is the smallest
-     radius the system allows; the 2520px card radius would make an ellipse of
-     a landscape screenshot. */
-  .evidence {
-    border-radius: var(--radius-input);
-    overflow: hidden;
-    border: 1px solid var(--color-bone-cream);
+  /* A black hairline disappears on the black sheet; the outline flips. */
+  .band-black .sticker-card {
+    border-color: var(--color-bone-cream);
   }
 
-  .evidence img {
-    display: block;
-    width: 100%;
-    height: auto;
-    filter: grayscale(1) contrast(1.05);
-    transition: filter var(--dur-ui) var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .evidence:hover img,
-    a:hover .evidence img {
-      filter: grayscale(0) contrast(1);
-    }
-  }
-
-  /* Row hover for the enumerated lists — the title takes the underline so the
-     whole row reads as one target without needing a background flip. */
-  @media (hover: hover) and (pointer: fine) {
-    .row-link:hover .row-title {
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 6px;
-    }
-  }
-
-  /* Generic press feedback for anything that is not a pill. */
-  .press {
-    transition: transform var(--dur-fast) var(--ease-out);
-  }
-
-  .press:active {
-    transform: scale(0.97);
-  }
-
-  /* ---- hero load-in ----------------------------------------------------
-     A stagger of masked line reveals: each line sits in its own overflow
-     clip and rises into it, one after the next, on a strong ease-out.
-
-     These run past the 150ms UI budget on purpose. That ceiling governs
-     transitions a user triggers dozens of times a session — hovers, presses,
-     route changes. This plays once on first paint, where the extra duration
-     is what makes the type read as settling rather than snapping.
-
-     Written as CSS animations rather than a JS tween because this fires while
-     the browser is still parsing and painting the rest of the document; a
-     requestAnimationFrame tween drops frames under exactly that load.
-     `both` fill holds the from-state through the delay, so nothing flashes
-     un-animated first, and the resting state stays visible if the animation
-     never runs at all. */
-  .reveal-line {
-    display: block;
-    overflow: hidden;
-    /* Descenders need room inside the clip; the negative margin keeps the
-       extra space from opening a gap in the stack. */
-    padding-bottom: 0.08em;
-    margin-bottom: -0.08em;
-  }
-
-  .reveal-line > * {
-    display: block;
-    animation: line-rise 900ms var(--ease-out) var(--delay, 0ms) both;
-  }
-
-  .rise-in {
-    animation: rise-in 700ms var(--ease-out) var(--delay, 0ms) both;
-  }
-
-  .ring-in {
-    animation: ring-in 1100ms var(--ease-out) var(--delay, 0ms) both;
-  }
-
-  /* Route enter — see template.tsx. Held at the interaction floor because it
-     is paid on every single navigation. */
-  .page-enter {
-    animation: page-enter var(--dur-ui) var(--ease-out) both;
+  /* On the black sheet a filled pill is black-on-black. The hairline flips
+     to cream so the button still has an edge. Outlined pills stay cream
+     with a black border, which already reads. */
+  .band-black .pill:not(.pill-outline) {
+    border-color: var(--color-bone-cream);
   }
 }
 
-@keyframes page-enter {
-  from {
-    opacity: 0;
+/* Documented compact padding, once a pointer can aim. */
+@media (pointer: fine) {
+  .pill {
+    min-height: 0;
+    padding: 10px 12px;
   }
 }
 
-/* The flame band's two layers drift in opposite directions at different speeds.
-   Constant motion, so linear — an eased marquee visibly stutters at the seam.
-   Each layer is two identical tiles across a double-width box, so exactly -50%
-   (or +50% back) lands tile two where tile one started and the loop is
-   invisible. Slow on purpose: this is ambient furniture, not an event. */
-.flame-drift-front {
-  animation: flame-drift-front 19s linear infinite;
+@media (hover: hover) and (pointer: fine) {
+  .pill:hover {
+    background-color: var(--color-bone-cream);
+    color: var(--color-void-black);
+  }
+
+  .pill-outline:hover {
+    background-color: var(--color-void-black);
+    color: var(--color-bone-cream);
+  }
 }
 
-.flame-drift-back {
-  animation: flame-drift-back 27s linear infinite;
+/* The only loop on the site. Two identical halves; -50% lands the second
+   where the first started. Linear, because an ease stutters at the seam. */
+.marquee-track {
+  animation: marquee 36s linear infinite;
 }
 
-@keyframes flame-drift-front {
+@keyframes marquee {
   from {
     transform: translate3d(0, 0, 0);
   }
@@ -400,81 +306,8 @@
   }
 }
 
-@keyframes flame-drift-back {
-  from {
-    transform: translate3d(-50%, 0, 0);
-  }
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-/* The intro is a first-paint event, not a per-route one. `template.tsx` keys on
-   the pathname, so every navigation remounts the subtree and restarts every CSS
-   animation underneath it — which meant paying the full ~1.2s hero cascade on
-   each click. Once the intro has played, this switches it off for the rest of
-   the session; see IntroGate, which sets the attribute both before first paint
-   and after the cascade finishes. */
-[data-intro="done"] .reveal-line > *,
-[data-intro="done"] .rise-in,
-[data-intro="done"] .ring-in {
-  animation: none;
-}
-
-@keyframes line-rise {
-  from {
-    transform: translate3d(0, 110%, 0);
-  }
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 16px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-/* The radar expands outward from the centre as the page lands, so the rings
-   read as a sweep rather than as static furniture that was always there.
-   Only `scale` is animated: Tailwind v4 centres these with the separate
-   `translate` property, and re-declaring a transform here would apply the
-   -50% offset a second time. */
-@keyframes ring-in {
-  from {
-    opacity: 0;
-    scale: 0.72;
-  }
-}
-
-/* Reduced motion means fewer and gentler animations, not none. Colour and
-   opacity still carry meaning; only the movement goes. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  ::after,
-  ::before {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-property: opacity, color, background-color, border-color,
-      box-shadow !important;
-    transition-duration: 150ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .pill:active,
-  .pill-outline:active,
-  .press:active {
-    transform: none;
-  }
-
-  /* Fade in place rather than snapping 12px once the transform is dropped. */
-  [data-js] .in-view:not(.is-shown) {
-    transform: none;
+  .marquee-track {
+    animation: none;
   }
 }

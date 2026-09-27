@@ -1,20 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, Inter } from "next/font/google";
+import { Bowlby_One, Inter } from "next/font/google";
 import "./globals.css";
+import Marquee from "@/components/marquee";
 import Nav from "@/components/nav";
 import SiteFooter from "@/components/site-footer";
-import IntroGate, { INTRO_SCRIPT } from "@/components/intro-gate";
 import { site } from "@/lib/content";
 
-// Stand-in for Spektra — the documented substitute. Extremely condensed, one
-// weight, built for poster scale. Display only; never body.
-const bebas = Bebas_Neue({
-  variable: "--font-bebas",
+// Stand-in for Lateral. One heavy cut, inflated, display only.
+const bowlby = Bowlby_One({
+  variable: "--font-bowlby",
   subsets: ["latin"],
   weight: "400",
 });
 
-// Stand-in for Helvetica Neue LT. Carries every UI label and line of prose.
+// Stand-in for Aeonik Pro. Weights 500 and 700 carry UI and prose.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -68,39 +67,34 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  colorScheme: "dark",
+  themeColor: "#ebe4d8",
+  colorScheme: "light",
 };
 
-// The next/font variable classes sit on <html> so --font-bebas and --font-inter
-// are defined at :root. The stacks in globals.css are declared there too, and a
-// custom property that references an undefined variable computes to
-// guaranteed-invalid — inherited as invalid, never re-resolved.
-const fontVars = `${bebas.variable} ${inter.variable}`;
+// next/font variables sit on <html> so --font-bowlby and --font-inter exist
+// at :root. The stacks in globals.css reference them; an undefined variable
+// computes to guaranteed-invalid and is inherited that way.
+const fontVars = `${bowlby.variable} ${inter.variable}`;
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    // suppressHydrationWarning: INTRO_SCRIPT stamps data-js and data-intro on
-    // <html> before React hydrates, so the client tree legitimately carries
-    // attributes the server markup does not. Scoped to this element only.
-    <html lang='en' className={fontVars} suppressHydrationWarning>
+    <html lang='en' className={fontVars}>
       <head>
         <link rel='icon' href='/favicon.ico' sizes='any' />
-        {/* Runs before first paint so a reload mid-session never flashes the
-            hero cascade before the gate can switch it off. */}
-        <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
       </head>
-      <body className='bg-void-black text-bone-cream'>
+      <body>
         <a
           href='#main'
-          className='pill pill-compact sr-only focus:not-sr-only focus:fixed focus:left-20 focus:top-20 focus:z-60'
+          className='pill pill-outline sr-only focus:not-sr-only focus:fixed focus:left-16 focus:top-16 focus:z-[80]'
         >
           Skip to content
         </a>
-        <IntroGate />
-        <Nav />
+        <div className='fixed inset-x-0 top-0 z-50'>
+          <Marquee />
+          <Nav />
+        </div>
         <div id='main'>{children}</div>
         <SiteFooter />
       </body>

@@ -5,7 +5,7 @@ import { extendTailwindMerge } from "tailwind-merge";
  * tailwind-merge only knows Tailwind's stock scale, so it reads a custom
  * `text-*` token as a text *colour* — which means `cn("text-heading",
  * "text-bone-cream")` silently drops the size and the element falls back to
- * 16px. Registering the design system's font-size names puts them in the right
+ * 15px. Registering the design system's font-size names puts them in the right
  * conflict group, so a size and a colour can coexist and two sizes still
  * collapse to the last one.
  *
@@ -22,8 +22,8 @@ const twMerge = extendTailwindMerge({
             "subheading",
             "heading-sm",
             "heading",
-            "heading-lg",
             "display",
+            "display-lg",
           ],
         },
       ],
