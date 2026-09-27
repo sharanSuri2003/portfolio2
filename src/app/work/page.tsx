@@ -11,7 +11,7 @@ import { roles, site, stats } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Technical Lead at WebVeda, Founding Engineer at IGC, Youth Impactor at 1M1B — roles, stacks and what shipped.",
+    "Technical Lead at WebVeda, Founding Engineer at IGC, Youth Impactor at 1M1B. Roles, stacks and what shipped.",
 };
 
 // Continues the hero: cream → taupe → black → cream, then Moved on taupe and
@@ -29,7 +29,7 @@ export default function WorkPage() {
     <main>
       <Hero eyebrow='Sharan Suri' lines={["Work"]} size='lg'>
         <p className='text-subheading'>
-          Three teams, one habit — find the broken funnel, rebuild it, prove the
+          Three teams, one habit: find the broken funnel, rebuild it, prove the
           number moved.
         </p>
       </Hero>
@@ -44,7 +44,7 @@ export default function WorkPage() {
               className='top-0 right-0 hidden md:flex'
             />
             <p className='eyebrow'>
-              {role.id} — {role.period} — {role.location}
+              {role.id} · {role.period} · {role.location}
             </p>
             <h2 className='display-type relative z-10 mt-16 max-w-[12ch] text-display'>
               {role.company}
@@ -80,7 +80,7 @@ export default function WorkPage() {
             rotate={-8}
             className='top-0 right-0 hidden md:flex'
           />
-          <p className='eyebrow'>04 — Readout</p>
+          <p className='eyebrow'>04 · Readout</p>
           <h2 className='display-type relative z-10 mt-16 text-display'>Moved</h2>
         </div>
         <p className='mt-16 max-w-[36rem] text-subheading'>
@@ -99,11 +99,11 @@ export default function WorkPage() {
             rotate={8}
             className='top-0 right-0 hidden md:flex'
           />
-          <p className='eyebrow'>05 — Availability</p>
+          <p className='eyebrow'>05 · Availability</p>
           <h2 className='display-type relative z-10 mt-16 text-display'>Hire</h2>
         </div>
         <p className='mt-16 max-w-[40rem] text-subheading'>
-          Open to fullstack and platform work — payments, growth surfaces,
+          Open to fullstack and platform work: payments, growth surfaces,
           migrations.
         </p>
         <div className='mt-24 flex flex-wrap gap-8'>

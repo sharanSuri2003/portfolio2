@@ -3,7 +3,7 @@
  * viewport edge, looping because the track is two identical halves.
  */
 const PHRASE =
-  "Fullstack engineer  —  Checkout and payments  —  Quiz engines  —  Ranking systems  —  Remote, India  —  ";
+  "Fullstack engineer  ·  Checkout and payments  ·  Quiz engines  ·  Ranking systems  ·  Remote, India  ·  ";
 
 export default function Marquee() {
   return (

@@ -52,7 +52,7 @@ export const metadata: Metadata = {
         url: "/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Sharan Suri — fullstack engineer",
+        alt: "Sharan Suri, fullstack engineer",
         type: "image/jpeg",
       },
     ],

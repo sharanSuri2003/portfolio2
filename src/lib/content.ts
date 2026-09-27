@@ -10,7 +10,7 @@ export const site = {
   role: "Fullstack Engineer",
   email: "devel.sharan.2003@gmail.com",
   resume: "/SharanResume5.0.pdf",
-  location: "Remote — India",
+  location: "Remote, India",
   github: "https://github.com/Sharan420",
   linkedin: "https://www.linkedin.com/in/sharan-suri",
 } as const;
@@ -36,7 +36,7 @@ export const stats: Stat[] = [
     value: 500,
     suffix: "K+",
     label: "User records migrated",
-    note: "WebVeda 2.0 relaunch — virtually zero downtime",
+    note: "WebVeda 2.0 relaunch with virtually zero downtime",
   },
   {
     value: 40,
@@ -75,7 +75,7 @@ export const roles: Role[] = [
     id: "01",
     company: "WebVeda",
     title: "Technical Lead",
-    period: "Mar 2024 — Present",
+    period: "Mar 2024 to Present",
     location: "Remote",
     summary:
       "Owns checkout, payments and the platform relaunch for an education business moving 10K+ transactions a month.",
@@ -101,7 +101,7 @@ export const roles: Role[] = [
     id: "02",
     company: "IGC",
     title: "Founding Engineer",
-    period: "May 2025 — Present",
+    period: "May 2025 to Present",
     location: "Remote",
     summary:
       "India Genius Challenge. Zero to 40K users in four months on a quiz engine and ELO ladder built to take the load.",
@@ -117,10 +117,10 @@ export const roles: Role[] = [
     id: "03",
     company: "1M1B",
     title: "Youth Impactor",
-    period: "Jan 2021 — Aug 2021",
+    period: "Jan 2021 to Aug 2021",
     location: "Remote",
     summary:
-      "AgriCraft — low-cost mobile tooling against stubble burning in a rural farming community.",
+      "AgriCraft: low-cost mobile tooling against stubble burning in a rural farming community.",
     stack: ["Low-code tools", "Content", "Field research"],
     points: [
       "Launched AgriCraft, a grassroots project leveraging simple tech tools to address stubble burning in a rural farming community.",

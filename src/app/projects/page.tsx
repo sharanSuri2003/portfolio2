@@ -11,7 +11,7 @@ import { projects, site } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Siggy and Traffix — independent builds in automation, web scraping, machine learning and computer vision.",
+    "Siggy and Traffix: independent builds in automation, web scraping, machine learning and computer vision.",
 };
 
 // Continues the hero: taupe, black, then the cream Backlog band before the
@@ -23,7 +23,7 @@ export default function ProjectsPage() {
     <main>
       <Hero eyebrow='Sharan Suri' lines={["Lab"]} size='lg'>
         <p className='text-subheading'>
-          Independent builds — made to answer a question, kept because they
+          Independent builds, made to answer a question, kept because they
           worked.
         </p>
       </Hero>
@@ -47,7 +47,7 @@ export default function ProjectsPage() {
               />
             )}
             <p className='eyebrow'>
-              {project.id} — {project.discipline} — {project.year}
+              {project.id} · {project.discipline} · {project.year}
             </p>
             <h2 className='display-type relative z-10 mt-16 text-display'>
               {project.title}
@@ -84,7 +84,7 @@ export default function ProjectsPage() {
             >
               <Image
                 src={project.image}
-                alt={`${project.title} — ${project.discipline}`}
+                alt={`${project.title}, ${project.discipline}`}
                 width={1440}
                 height={900}
                 className='h-auto w-full'
@@ -102,7 +102,7 @@ export default function ProjectsPage() {
             rotate={-8}
             className='top-0 right-0 hidden md:flex'
           />
-          <p className='eyebrow'>03 — Backlog</p>
+          <p className='eyebrow'>03 · Backlog</p>
           <h2 className='display-type relative z-10 mt-16 text-display'>More</h2>
         </div>
         <p className='mt-16 max-w-[40rem] text-subheading'>

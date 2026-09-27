@@ -20,7 +20,7 @@ const queued = [
   {
     id: "02",
     title: "ELO for 40,000 people",
-    note: "Ranking without melting the database — batch it and stop pretending it's live.",
+    note: "Ranking without melting the database. Batch it and stop pretending it's live.",
   },
   {
     id: "03",
@@ -35,7 +35,7 @@ export default function BlogPage() {
       <Hero eyebrow='Sharan Suri' lines={["Notes"]} size='lg'>
         <p className='text-subheading'>
           On payments, funnels and systems that have to hold. Nothing published
-          yet — three drafts in the queue.
+          yet. Three drafts in the queue.
         </p>
       </Hero>
 
@@ -47,7 +47,7 @@ export default function BlogPage() {
             rotate={8}
             className='top-0 right-0 hidden md:flex'
           />
-          <p className='eyebrow'>01 — Queue</p>
+          <p className='eyebrow'>01 · Queue</p>
           <h2 className='display-type mt-16 text-display'>Queue</h2>
           <p className='mt-16 max-w-[40rem] text-subheading'>
             Three drafts, none of them finished yet.
@@ -75,10 +75,10 @@ export default function BlogPage() {
             rotate={-10}
             className='top-0 right-0 hidden md:flex'
           />
-          <p className='eyebrow'>02 — Requests</p>
+          <p className='eyebrow'>02 · Requests</p>
           <h2 className='display-type relative z-10 mt-16 text-display'>Ask</h2>
           <p className='mt-16 max-w-[40rem] text-subheading'>
-            Tell me which one to write first — or what the list is missing.
+            Tell me which one to write first, or what the list is missing.
           </p>
         </div>
         <div className='mt-24'>

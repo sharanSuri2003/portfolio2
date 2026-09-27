@@ -13,7 +13,7 @@ export default function SiteFooter() {
       <div className='page-frame flex flex-col gap-24 py-48 md:py-80'>
         <p className='text-heading-sm font-bold tracking-[-0.01em]'>{site.name}</p>
         <p className='text-body'>
-          {site.role} — {site.location}
+          {site.role} · {site.location}
         </p>
         <div className='flex flex-wrap gap-8'>
           <a

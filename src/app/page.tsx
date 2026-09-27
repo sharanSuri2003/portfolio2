@@ -20,7 +20,7 @@ export default function Home() {
       <Hero eyebrow='Portfolio' lines={["Sharan", "Suri"]}>
         <p className='text-subheading'>
           Fullstack engineer. I build checkout and payment infrastructure, quiz
-          engines and ranking systems — the parts that break first when traffic
+          engines and ranking systems: the parts that break first when traffic
           arrives, and the parts nobody notices when they hold.
         </p>
         <div className='mt-24 flex flex-wrap gap-8'>
@@ -41,7 +41,7 @@ export default function Home() {
             rotate={-8}
             className='top-0 right-0 hidden md:flex'
           />
-          <p className='eyebrow relative z-10'>01 — The record</p>
+          <p className='eyebrow relative z-10'>01 · The record</p>
           <h2 className='display-type relative z-10 mt-16 text-display'>Record</h2>
           <div className='mt-24 max-w-[42rem] text-body'>
             <p>
@@ -49,8 +49,8 @@ export default function Home() {
               <Link href='/work' className='link-underline'>
                 WebVeda
               </Link>{" "}
-              I own checkout and payments — Razorpay and Stripe moving 10,000+
-              transactions a month — and I shipped the 2.0 relaunch, migrating
+              I own checkout and payments, Razorpay and Stripe moving 10,000+
+              transactions a month, and I shipped the 2.0 relaunch, migrating
               500,000+ user records with virtually zero downtime. Promoted to
               Tech Lead inside twelve months, then rebuilt the entire checkout
               flow over a single weekend when a 3x surge in initiations against
@@ -90,7 +90,7 @@ export default function Home() {
             className='top-0 right-[34%] hidden md:flex'
           />
           <div className='relative z-10'>
-            <p className='eyebrow'>02 — Readout</p>
+            <p className='eyebrow'>02 · Readout</p>
             <h2 className='display-type mt-16 text-display'>Moved</h2>
             <p className='mt-16 max-w-[36rem] text-subheading'>
               Measured in production, not in slides.
@@ -100,9 +100,9 @@ export default function Home() {
             href={site.resume}
             target='_blank'
             rel='noopener noreferrer'
-            className='sticker-card sticker-card-ink flex w-full max-w-[280px] overflow-hidden p-0'
+            className='sticker-card sticker-card-ink flex w-[200px] overflow-hidden p-0'
           >
-            <span className='flex w-1/2 items-center justify-center border-r border-void-black bg-bone-cream p-16 text-void-black'>
+            <span className='flex w-1/2 items-center justify-center border-r border-void-black bg-bone-cream p-12 text-void-black'>
               <ResumeMark />
             </span>
             <span className='eyebrow flex w-1/2 items-center justify-center text-center text-bone-cream'>
@@ -136,7 +136,7 @@ export default function Home() {
             rotate={-8}
             className='top-[96px] right-[16%] hidden lg:flex'
           />
-          <p className='eyebrow'>03 — The lab</p>
+          <p className='eyebrow'>03 · The lab</p>
           <h2 className='display-type mt-16 text-display-lg'>Lab</h2>
           <p className='mt-16 max-w-[36rem] text-subheading'>
             Built to answer a question.
@@ -152,7 +152,7 @@ export default function Home() {
               >
                 <div className='p-24'>
                   <p className='eyebrow'>
-                    {project.discipline} — {project.year}
+                    {project.discipline} · {project.year}
                   </p>
                   <h3 className='mt-12 text-heading-sm font-bold tracking-[-0.01em]'>
                     {project.title}
@@ -162,7 +162,7 @@ export default function Home() {
                 <div className='relative mt-auto min-h-[280px] flex-1 border-t border-void-black'>
                   <Image
                     src={project.image}
-                    alt={`${project.title} — ${project.discipline}`}
+                    alt={`${project.title}, ${project.discipline}`}
                     fill
                     sizes='(min-width: 1024px) 640px, 100vw'
                     className='object-cover'
@@ -185,7 +185,7 @@ export default function Home() {
 
 function ResumeMark() {
   return (
-    <svg viewBox='0 0 48 48' className='size-[48px]' aria-hidden>
+    <svg viewBox='0 0 48 48' className='size-[32px]' aria-hidden>
       <rect
         x='12'
         y='6'
