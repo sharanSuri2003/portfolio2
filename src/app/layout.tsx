@@ -22,7 +22,7 @@ const inter = Inter({
 const siteUrl = "https://sharansuri.in";
 const siteTitle = "Sharan Suri";
 const siteDescription =
-  "Fullstack engineer. Checkout and payment infrastructure at WebVeda, founding engineer at IGC. 500K+ records migrated, 0 to 40K users in four months.";
+  "Fullstack engineer building checkout and payment infrastructure, quiz engines, and ranking systems that hold up when traffic arrives.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -49,10 +49,10 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: "/og.jpg",
+        url: "/og-portfolio.jpg",
         width: 1200,
         height: 630,
-        alt: "Sharan Suri, fullstack engineer",
+        alt: "Sharan Suri portfolio preview with bold black type on cream and a red ribbon",
         type: "image/jpeg",
       },
     ],
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/og.jpg"],
+    images: ["/og-portfolio.jpg"],
   },
   robots: { index: true, follow: true },
 };
